@@ -8,10 +8,13 @@
   "dependencies": {
     "jquery": "^3.4.1",
     "node-spotify-api": "^1.1.1",
+    "postscribe": "^2.0.8",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-helmet": "^6.0.0",
-    "react-scripts": "2.1.8"
+    "react-load-script": "0.0.6",
+    "react-scripts": "2.1.8",
+    "react-spotify-web-playback": "^0.6.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import * as $ from "jquery";
 import { authEndpoint, clientId, redirectUri, scopes } from "./config";
 import hash from "./hash";
-import Player from "./components/Player";
-// import Playback from "./components/Playback"
 import logo from "./logo.svg";
 import "./App.css";
 import Playback from "./components/Playback";
@@ -48,7 +46,6 @@ class App extends Component {
         xhr.setRequestHeader("Authorization", "Bearer " + token);
       },
       success: data => {
-        console.log(data)
         this.setState({
           item: data.item,
           is_playing: data.is_playing,
@@ -81,6 +78,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
+          
           {!this.state.token && (
             <a
               className="btn btn--loginApp-link"
@@ -92,14 +90,11 @@ class App extends Component {
             </a>
           )}
           {this.state.token && (
-            // <Player
-            //   item={this.state.item}
-            //   is_playing={this.state.is_playing}
-            //   progress_ms={this.progress_ms}
-            // />
+            <div>
             <Playback
               token={this.state.token}
-            />
+              ></Playback>
+          </div>
           )}
         </header>
       </div>
