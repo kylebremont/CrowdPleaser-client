@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import Spotify from 'node-spotify-api'
+import { clientId, secret } from '../config';
 
 export default class Playback extends Component {
     constructor(props) {
         super(props);
     
         this.state = {
-            access_code: "BQBlWiDjLtLm2BvJ6id4pTOChx-p7nrPgYAjqF2hD7Uf3JyXjaar0j1rgkokdGqSBJ98AR1v2gnLoDPDiEE5ejmWC5M8-9GFNPuIWL6wkm26Q0Bx2BnAsbR_s_j8ln6EyyDjol4Ol3HUi1B2vUQxBKFQgtEMCNtDwLP8",
+            access_code: "BQDkZCFqBME7T9orfYJAqx0_-L09uWobtvF4vSDVRxctiva2n-LMr7rIXaGWnNyk9NPIJF_e03BfIRDzfMfnyGnO4u_HorjsA5athtjAQ6Af7ZaeEcl8wUzRlvvTbRzBRFLhOFcf7K4C7h6s7Sj92Oa1GtkFRro2T6Js",
             player: null,
             trackURI: null,
             searchValue: '',
@@ -88,8 +89,8 @@ export default class Playback extends Component {
 
     searchSpotify() {
       var spotify = new Spotify({
-          id: '5c24a8e608774631812a8325b2b4057a',
-          secret: '4837b819f7cd4cae8f4685c3b7906e5e'
+          id: clientId,
+          secret: secret
       });
       if (this.state.searchValue === undefined) {
         return;
