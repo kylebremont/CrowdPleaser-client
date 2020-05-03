@@ -10,8 +10,7 @@ const routing = (
     <Router>
         <div>
             <Route exact path="/" component={App} />
-            <Route exact path="/redirect" component={App} />
-            <Route path="/home" component={Playback}  /> 
+            <Route path="/home" component={App}  /> 
         </div>
     </Router>
 )
