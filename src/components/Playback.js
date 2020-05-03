@@ -6,7 +6,7 @@ export default class Playback extends Component {
         super(props);
     
         this.state = {
-            access_code: "BQD3G0VeBQTt9IeDQMd63fBUc_XpuORj1W7sVDBHkVqUtg4P66GHJ3RQaelYuu8U6XjDJj6j9ScdQIILkdmDkhorugjNKIERdtHGEwxGb8HyQKjzyl7aaClpvWzZN4y_bakTbyWvCG3xR7UmNV4YhU3YS9LdYD8EIjbE",
+            access_code: "BQBlWiDjLtLm2BvJ6id4pTOChx-p7nrPgYAjqF2hD7Uf3JyXjaar0j1rgkokdGqSBJ98AR1v2gnLoDPDiEE5ejmWC5M8-9GFNPuIWL6wkm26Q0Bx2BnAsbR_s_j8ln6EyyDjol4Ol3HUi1B2vUQxBKFQgtEMCNtDwLP8",
             player: null,
             trackURI: null,
             searchValue: '',
@@ -87,27 +87,28 @@ export default class Playback extends Component {
     }
 
     searchSpotify() {
-        var spotify = new Spotify({
-            id: '5c24a8e608774631812a8325b2b4057a',
-            secret: '4837b819f7cd4cae8f4685c3b7906e5e'
-        });
-        console.log(this.state.searchValue)
-        if (this.state.searchValue === undefined) {
-          console.log('im upset')
-          return;
-        }
-        spotify.search({ type: 'track', query: this.state.searchValue}, (err, data) => {
-            if (err) {
-              console.log("im a bitch");
-              return console.log(err);
-            }
-            var trackURI = data.tracks.items[0].uri;
-            this.setState({trackURI}, this.playTrack);
-        });
+      var spotify = new Spotify({
+          id: '5c24a8e608774631812a8325b2b4057a',
+          secret: '4837b819f7cd4cae8f4685c3b7906e5e'
+      });
+      if (this.state.searchValue === undefined) {
+        return;
+      }
+      spotify.search({ type: 'track', query: this.state.searchValue}, (err, data) => {
+          if (err) {
+            return console.log(err);
+          }
+          var trackURI = data.tracks.items[0].uri;
+          this.setState({trackURI}, this.playTrack);
+      });
     }
 
     handleChange(event) {
-      this.setState({searchValue: event.target.value});
+      if (event.target.value === "" ) {
+        return;
+      }
+      this.setState({searchValue: event.target.value}, this.searchSpotify);
+
     }
 
     render() {
@@ -122,7 +123,6 @@ export default class Playback extends Component {
                         Song:
                         <input type="text" name="song" onChange={this.handleChange}/>
                     </label>
-                    <input type="submit" value="Submit" onClick={this.searchSpotify} />
                 </form>
              </div>
         );
