@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import Spotify from 'node-spotify-api'
 import { clientId, secret } from '../config';
+import Song from "./Song"
 
 export default class Playback extends Component {
     constructor(props) {
         super(props);
     
         this.state = {
-            access_code: "BQDkZCFqBME7T9orfYJAqx0_-L09uWobtvF4vSDVRxctiva2n-LMr7rIXaGWnNyk9NPIJF_e03BfIRDzfMfnyGnO4u_HorjsA5athtjAQ6Af7ZaeEcl8wUzRlvvTbRzBRFLhOFcf7K4C7h6s7Sj92Oa1GtkFRro2T6Js",
+            access_code: props.access_code,
             player: null,
             trackURI: null,
             searchValue: '',
+            songs: []
         }
 
         this.connectToSpotify = this.connectToSpotify.bind(this);
@@ -100,7 +102,13 @@ export default class Playback extends Component {
             return console.log(err);
           }
           var trackURI = data.tracks.items[0].uri;
-          this.setState({trackURI}, this.playTrack);
+          var songs = []
+          // console.log(data.tracks.items);
+          for (let i = 0; i < 20; i++) {
+            let song = data.tracks.items[i];
+            songs.push({"name": song.name, "artist": song.artists[0].name, "uri": song.uri, "duration": song.duration_ms})
+          }
+          this.setState({trackURI, songs}, this.playTrack);
       });
     }
 
@@ -108,16 +116,14 @@ export default class Playback extends Component {
       if (event.target.value === "" ) {
         return;
       }
-      this.setState({searchValue: event.target.value}, this.searchSpotify);
+      this.setState({searchValue: event.target.value, songs: []}, this.searchSpotify);
 
     }
 
     render() {
-
         return (
             <div>
-                <h1>Spotify Web Playback SDK Quick Start Tutorial</h1>
-                <h2>Open your console log: <code>View > Developer > JavaScript Console</code></h2>
+                <h1>welcome to crowdpleaser</h1>
                 {this.connectToSpotify()}
                 <form>
                     <label>
@@ -125,6 +131,10 @@ export default class Playback extends Component {
                         <input type="text" name="song" onChange={this.handleChange}/>
                     </label>
                 </form>
+                {this.state.songs.map(function(song,i){
+                    console.log(song)
+                    return<Song key={i} data={song}></Song>
+                })}
              </div>
         );
     }

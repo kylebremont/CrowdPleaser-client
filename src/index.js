@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import Login from './components/Login'
 import Playback from './components/Playback'
+import App from './App'
 
 const routing = (
     <Router>
         <div>
-            <Route exact path="/" component={Login} />
+            <Route exact path="/" component={App} />
+            <Route exact path="/redirect" component={App} />
             <Route path="/home" component={Playback}  /> 
         </div>
     </Router>

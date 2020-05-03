@@ -4,7 +4,6 @@ import hash from "./hash";
 import logo from "./logo.svg";
 import "./App.css";
 import Playback from "./components/Playback";
-import Login from "./components/Login"
 
 class App extends Component {
   constructor() {
@@ -15,20 +14,17 @@ class App extends Component {
     };
   }
 
-  updateToken(token) {
-    this.setState({token})
-  }
-
   componentDidMount() {
-    // Set token
-    // let _token = hash.access_token;
-    
-    // if (_token) {
-    //   // Set token
-    //   this.setState({
-    //     token: _token
-    //   });
-    // }
+    let _token = hash.access_token;
+   
+    if (_token) {
+      
+      // Set token
+      this.setState({
+        token: _token,
+        loggedIn:  true
+      });
+    }
   }
 
   // getCurrentlyPlaying(token) {
@@ -54,22 +50,21 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          {/* {!this.state.loggedIn && (
+          {!this.state.loggedIn && (
             <div>
-            <Login></Login>
+            <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+                    "%20"
+                )}&response_type=token&show_dialog=true`}>Login to Spotify</a>
           </div>
           )}
           {this.state.loggedIn && (
             <div>
+
             <Playback
               access_code={this.state.token}
             ></Playback>
           </div>
-          )} */}
-
-          <Playback
-            access_code="BQAdnKGdQbFeCOAj-r9s4O9guSebikdDztAcnlMXCQ9Q4TiY9UjcWj2DbxZAj7Def31dM1YvM5gNahu2qJJ1Xvz94jmHzR7XnoU8-gPXIAf2kvvNjdE_ozvcw2zscBOfn71oMvX97DwLxiwTDuElj6gKLqdr2OGFwnoE"
-          ></Playback>
+          )}
         </header>
       </div>
     );
