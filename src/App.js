@@ -4,6 +4,7 @@ import hash from "./hash";
 import logo from "./spotify.svg";
 import "./App.css";
 import Playback from "./components/Playback";
+import Queue from "./components/Queue";
 
 class App extends Component {
   constructor() {
@@ -63,6 +64,7 @@ class App extends Component {
             <Playback
               access_code={this.state.token}
             ></Playback>
+            <Queue></Queue>
           </div>
           )}
         </header>

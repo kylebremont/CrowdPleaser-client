@@ -147,6 +147,10 @@ export default class Playback extends Component {
       this.playTrack();
     }
 
+    afterSubmit(event) {
+      event.preventDefault();
+    }
+
     getSongUri(trackURI) {
       this.setState({trackURI}, () => this.playTrack());
     }
@@ -156,7 +160,7 @@ export default class Playback extends Component {
             <div>
                 <h1>welcome to crowdpleaser</h1>
                 {this.connectToSpotify()}
-                <form>
+                <form onSubmit={this.afterSubmit}>
                     <label>
                         Song:
                         <input type="text" name="song" onChange={this.handleChange}/>
