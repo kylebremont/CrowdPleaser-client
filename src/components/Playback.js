@@ -125,7 +125,6 @@ export default class Playback extends Component {
             return console.log(err);
           }
           var songs = []
-          // console.log(data.tracks.items);
           for (let i = 0; i < 20; i++) {
             let song = data.tracks.items[i];
             songs.push({"name": song.name, "artist": song.artists[0].name, "uri": song.uri, "duration": song.duration_ms})
@@ -149,9 +148,7 @@ export default class Playback extends Component {
     }
 
     getSongUri(trackURI) {
-      this.setState({trackURI});
-      this.playTrack();
-      // console.log(trackURI);
+      this.setState({trackURI}, () => this.playTrack());
     }
 
     render() {
@@ -167,9 +164,7 @@ export default class Playback extends Component {
                     </label>
                 </form>
                 {this.state.songs !== undefined && this.state.songs.map((song,i) => {
-                    // console.log(song)
                     return<Song key={i} data={song} getSongUri={this.getSongUri}></Song>
-                    // return<Song key={i} data={song}></Song>
                 })}
              </div>
         );
