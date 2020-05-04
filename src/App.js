@@ -33,6 +33,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
+          <h1>welcome to crowdpleaser</h1>
           {!this.state.loggedIn && (
             <div>
             <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
@@ -41,12 +42,15 @@ class App extends Component {
           </div>
           )}
           {this.state.loggedIn && (
-            <div>
-
-            <Search
-              access_code={this.state.token}
-            ></Search>
-            <Queue></Queue>
+            <div class="row">
+              <div class="column">
+                <Search
+                  access_code={this.state.token}
+                ></Search>
+            </div>
+            <div className="column">
+              <Queue></Queue>
+            </div>
           </div>
           )}
         </header>

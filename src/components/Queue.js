@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Song from './Song';
 
 
 export default class Queue extends Component {
@@ -8,6 +9,17 @@ export default class Queue extends Component {
         this.state = {
             queue: [],
         }
+    }
+
+    enqueue(song) {
+        this.state.queue.push(song);
+    }
+
+    dequeue() {
+        if (this.isEmpty()) {
+            return "Underflow";
+        }
+        return this.queue.shift();
     }
 
 
