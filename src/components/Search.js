@@ -4,7 +4,7 @@ import { clientId, secret } from '../config';
 import Song from "./Song"
 import { Button } from 'react-bootstrap';
 
-export default class Playback extends Component {
+export default class Search extends Component {
     constructor(props) {
         super(props);
     
@@ -153,7 +153,6 @@ export default class Playback extends Component {
     render() {
         return (
             <div>
-                <h1>welcome to crowdpleaser</h1>
                 {this.connectToSpotify()}
                 <form onSubmit={this.handleEnter}>
                     <label>

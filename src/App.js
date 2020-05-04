@@ -3,7 +3,7 @@ import { authEndpoint, clientId, redirectUri, scopes } from "./config";
 import hash from "./hash";
 import logo from "./spotify.svg";
 import "./App.css";
-import Playback from "./components/Playback";
+import Search from "./components/Search";
 import Queue from "./components/Queue";
 
 class App extends Component {
@@ -28,29 +28,12 @@ class App extends Component {
     }
   }
 
-  // getCurrentlyPlaying(token) {
-  //   // Make a call using the token
-  //   $.ajax({
-  //     url: "https://api.spotify.com/v1/me/player",
-  //     type: "GET",
-  //     beforeSend: xhr => {
-  //       xhr.setRequestHeader("Authorization", "Bearer " + token);
-  //     },
-  //     success: data => {
-  //       this.setState({
-  //         item: data.item,
-  //         is_playing: data.is_playing,
-  //         progress_ms: data.progress_ms
-  //       });
-  //     }
-  //   });
-  // }
-
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
+          <h1>welcome to crowdpleaser</h1>
           {!this.state.loggedIn && (
             <div>
             <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
@@ -59,11 +42,15 @@ class App extends Component {
           </div>
           )}
           {this.state.loggedIn && (
-            <div>
-            <Queue></Queue>
-            <Playback
-              access_code={this.state.token}
-            ></Playback>
+            <div class="row">
+              <div class="column">
+                <Search
+                  access_code={this.state.token}
+                ></Search>
+            </div>
+            <div className="column">
+              <Queue></Queue>
+            </div>
           </div>
           )}
         </header>
