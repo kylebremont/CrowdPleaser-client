@@ -5,6 +5,7 @@ import logo from "./spotify.svg";
 import "./App.css";
 import Search from "./components/Search";
 import Queue from "./components/Queue";
+import Playback from "./components/Playback";
 
 class App extends Component {
   constructor() {
@@ -42,14 +43,17 @@ class App extends Component {
           </div>
           )}
           {this.state.loggedIn && (
+          <div>
+            <Playback></Playback>
             <div class="row">
               <div class="column">
                 <Search
                   access_code={this.state.token}
                 ></Search>
-            </div>
-            <div className="column">
-              <Queue></Queue>
+              </div>
+              <div className="column">
+                <Queue></Queue>
+              </div>
             </div>
           </div>
           )}
