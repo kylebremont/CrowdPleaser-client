@@ -20,7 +20,6 @@ export default class Playback extends Component {
         this.searchSpotify = this.searchSpotify.bind(this);
         this.playTrack = this.playTrack.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
         this.getSongUri = this.getSongUri.bind(this);
 
     }
@@ -143,11 +142,7 @@ export default class Playback extends Component {
 
     }
 
-    handleClick(event) {
-      this.playTrack();
-    }
-
-    afterSubmit(event) {
+    handleEnter(event) {
       event.preventDefault();
     }
 
@@ -160,11 +155,10 @@ export default class Playback extends Component {
             <div>
                 <h1>welcome to crowdpleaser</h1>
                 {this.connectToSpotify()}
-                <form onSubmit={this.afterSubmit}>
+                <form onSubmit={this.handleEnter}>
                     <label>
                         Song:
                         <input type="text" name="song" onChange={this.handleChange}/>
-                        <Button onClick={this.handleClick}>Search</Button>
                     </label>
                 </form>
                 {this.state.songs !== undefined && this.state.songs.map((song,i) => {

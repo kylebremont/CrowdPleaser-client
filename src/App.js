@@ -60,11 +60,10 @@ class App extends Component {
           )}
           {this.state.loggedIn && (
             <div>
-
+            <Queue></Queue>
             <Playback
               access_code={this.state.token}
             ></Playback>
-            <Queue></Queue>
           </div>
           )}
         </header>
