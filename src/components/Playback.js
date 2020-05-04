@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { clientId, secret } from '../config';
-
+import logo from '../spotify.svg';
 export default class Playback extends Component {
     constructor(props) {
         super(props);
@@ -8,11 +8,19 @@ export default class Playback extends Component {
         this.state = {
             access_code: props.access_code,
             player: null,
-            trackURI: null,
+            song: {
+                name: null,
+                uri: null,
+                duration: null,
+                image: null,
+                artist: null,
+            },
+            // is_playing: "Paused",
+            // progress_ms: 0
         }
         this.connectToSpotify = this.connectToSpotify.bind(this);
         this.playTrack = this.playTrack.bind(this);
-        this.setTrackURI = this.setTrackURI.bind(this);
+        this.setSong = this.setSong.bind(this);
     }
 
     componentDidMount () {
@@ -95,12 +103,13 @@ export default class Playback extends Component {
       
           play({
             playerInstance: this.state.player,
-            spotify_uri: this.state.trackURI,
+            spotify_uri: this.state.song.uri,
         });
       }
 
-    setTrackURI(trackURI) {
-        this.setState({trackURI}, () => this.playTrack());
+    setSong(song) {
+        console.log(song.uri)
+        this.setState({song}, () => this.playTrack());
     }
 
     render() {
@@ -118,24 +127,30 @@ export default class Playback extends Component {
         return (
             <div className="App">
                 {this.connectToSpotify()}
-            {/* <div className="main-wrapper">
+            {!this.state.song.name && (
+                <div>
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <h1>welcome to crowdpleaser</h1>
+                </div>
+            )}
+            <div className="main-wrapper">
               <div className="now-playing__img">
-                <img src={this.props.item.album.images[0].url} />
+                <img src={this.state.song.image} />
               </div>
               <div className="now-playing__side">
-                <div className="now-playing__name">{this.props.item.name}</div>
+                <div className="now-playing__name">{this.state.song.name}</div>
                 <div className="now-playing__artist">
-                  {this.props.item.artists[0].name}
+                  {this.state.song.artist}
                 </div>
-                <div className="now-playing__status">
+                {/* <div className="now-playing__status">
                   {this.props.is_playing ? "Playing" : "Paused"}
                 </div>
                 <div className="progress">
                   <div className="progress__bar" style={progressBarStyles} />
-                </div>
+                </div> */}
               </div>
-              <div className="background" style={backgroundStyles} />{" "}
-            </div> */}
+              {/* <div className="background" style={backgroundStyles} />{" "} */}
+            </div>
           </div>
         );
     }

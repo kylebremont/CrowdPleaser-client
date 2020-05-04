@@ -46,19 +46,18 @@ class App extends Component {
     this.queueElement.current.dequeue(songInfo);
   }
 
-  playSong(songURI) {
-    this.playbackElement.current.setTrackURI(songURI)
+  playSong(song) {
+    this.playbackElement.current.setSong(song)
   }
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1>welcome to crowdpleaser</h1>
+          
           {!this.state.loggedIn && (
             <div>
-            <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+              <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
                     "%20"
                 )}&response_type=token&show_dialog=true`}>Login to Spotify</a>
           </div>

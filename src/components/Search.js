@@ -122,7 +122,7 @@ export default class Search extends Component {
           var songs = []
           for (let i = 0; i < 20; i++) {
             let song = data.tracks.items[i];
-            songs.push({"name": song.name, "artist": song.artists[0].name, "uri": song.uri, "duration": song.duration_ms})
+            songs.push({"name": song.name, "artist": song.artists[0].name, "uri": song.uri, "duration": song.available_markets.duration_ms, "image": song.album.images[0].url})
           }
           // this.setState({trackURI, songs});
           this.setState({songs});
