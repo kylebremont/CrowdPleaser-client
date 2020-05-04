@@ -16,7 +16,7 @@ export default class Song extends Component {
     render() {
         return (
             <div>
-                <Button onClick={() => { this.props.getSongUri(this.state.uri) } }>{this.state.name + ", " + this.state.artist}</Button>
+                <Button onClick={() => { this.props.getSongUri(this.state) } }>{this.state.name + ", " + this.state.artist}</Button>
              </div>
         );
     }

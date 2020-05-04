@@ -88,7 +88,6 @@ export default class Search extends Component {
             var data = {}
             data[device_id] = this.state.access_code;
       
-            console.log(data)
             fetch(`http://localhost:3500/devices`, {
                   method: 'PUT',
                   body: JSON.stringify(data),
@@ -146,8 +145,8 @@ export default class Search extends Component {
       event.preventDefault();
     }
 
-    getSongUri(trackURI) {
-      this.setState({trackURI}, () => this.playTrack());
+    getSongUri(songInfo) {
+      this.setState({trackURI: songInfo.trackURI}, () => this.props.addToQueue(songInfo));
     }
 
     render() {

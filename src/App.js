@@ -5,14 +5,20 @@ import logo from "./spotify.svg";
 import "./App.css";
 import Search from "./components/Search";
 import Queue from "./components/Queue";
+import Song from "./components/Song";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       token: null,
-      loggedIn: false
+      loggedIn: false,
+      songInfo: null,
     };
+
+    this.queueElement = React.createRef();
+
+    this.addToQueue = this.addToQueue.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +32,10 @@ class App extends Component {
         loggedIn:  true
       });
     }
+  }
+
+  addToQueue(songInfo) {
+    this.queueElement.current.enqueue(songInfo);
   }
 
   render() {
@@ -42,14 +52,15 @@ class App extends Component {
           </div>
           )}
           {this.state.loggedIn && (
-            <div class="row">
-              <div class="column">
+            <div className="row">
+              <div className="column">
                 <Search
                   access_code={this.state.token}
+                  addToQueue={this.addToQueue}
                 ></Search>
             </div>
             <div className="column">
-              <Queue></Queue>
+              <Queue ref={this.queueElement}></Queue>
             </div>
           </div>
           )}
