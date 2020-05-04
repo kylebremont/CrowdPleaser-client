@@ -3,7 +3,7 @@ import { authEndpoint, clientId, redirectUri, scopes } from "./config";
 import hash from "./hash";
 import logo from "./spotify.svg";
 import "./App.css";
-import Playback from "./components/Playback";
+import Search from "./components/Search";
 import Queue from "./components/Queue";
 
 class App extends Component {
@@ -28,24 +28,6 @@ class App extends Component {
     }
   }
 
-  // getCurrentlyPlaying(token) {
-  //   // Make a call using the token
-  //   $.ajax({
-  //     url: "https://api.spotify.com/v1/me/player",
-  //     type: "GET",
-  //     beforeSend: xhr => {
-  //       xhr.setRequestHeader("Authorization", "Bearer " + token);
-  //     },
-  //     success: data => {
-  //       this.setState({
-  //         item: data.item,
-  //         is_playing: data.is_playing,
-  //         progress_ms: data.progress_ms
-  //       });
-  //     }
-  //   });
-  // }
-
   render() {
     return (
       <div className="App">
@@ -61,9 +43,9 @@ class App extends Component {
           {this.state.loggedIn && (
             <div>
 
-            <Playback
+            <Search
               access_code={this.state.token}
-            ></Playback>
+            ></Search>
             <Queue></Queue>
           </div>
           )}
