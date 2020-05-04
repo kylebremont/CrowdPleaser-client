@@ -9,10 +9,14 @@ export default class Queue extends Component {
         this.state = {
             queue: [],
         }
+        this.enqueue = this.enqueue.bind(this);
+        this.dequeue = this.dequeue.bind(this);
     }
 
     enqueue(song) {
-        this.state.queue.push(song);
+        var queue = this.state.queue;
+        queue.push(song);
+        this.setState({queue});
     }
 
     dequeue() {
@@ -24,7 +28,7 @@ export default class Queue extends Component {
 
 
     render() {
-
+        console.log(this.state.queue);
         return (
             <div>buttsoup</div>
         );
