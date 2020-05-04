@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 
 export default class Song extends Component {
     constructor(props) {
@@ -13,10 +14,11 @@ export default class Song extends Component {
     }
 
     render() {
-        console.log(this.state.name)
+        // console.log(this.state.name)
         return (
             <div>
-                {this.state.name + ", " + this.state.artist }
+                <Button onClick={() => { this.props.getSongUri(this.state.uri) } }>{this.state.name + ", " + this.state.artist}</Button>
+                {/* {this.state.name + ", " + this.state.artist + ", " + this.state.uri } */}
              </div>
         );
     }

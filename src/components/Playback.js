@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Spotify from 'node-spotify-api'
 import { clientId, secret } from '../config';
 import Song from "./Song"
+import { Button } from 'react-bootstrap';
 
 export default class Playback extends Component {
     constructor(props) {
@@ -19,7 +20,8 @@ export default class Playback extends Component {
         this.searchSpotify = this.searchSpotify.bind(this);
         this.playTrack = this.playTrack.bind(this);
         this.handleChange = this.handleChange.bind(this);
-
+        this.handleClick = this.handleClick.bind(this);
+        this.getSongUri = this.getSongUri.bind(this);
 
     }
 
@@ -108,7 +110,8 @@ export default class Playback extends Component {
             let song = data.tracks.items[i];
             songs.push({"name": song.name, "artist": song.artists[0].name, "uri": song.uri, "duration": song.duration_ms})
           }
-          this.setState({trackURI, songs}, this.playTrack);
+          // this.setState({trackURI, songs});
+          this.setState({songs});
       });
     }
 
@@ -120,6 +123,16 @@ export default class Playback extends Component {
 
     }
 
+    handleClick(event) {
+      this.playTrack();
+    }
+
+    getSongUri(trackURI) {
+      this.setState({trackURI});
+      this.playTrack();
+      // console.log(trackURI);
+    }
+
     render() {
         return (
             <div>
@@ -129,11 +142,13 @@ export default class Playback extends Component {
                     <label>
                         Song:
                         <input type="text" name="song" onChange={this.handleChange}/>
+                        <Button onClick={this.handleClick}>Search</Button>
                     </label>
                 </form>
-                {this.state.songs.map(function(song,i){
-                    console.log(song)
-                    return<Song key={i} data={song}></Song>
+                {this.state.songs.map((song,i) => {
+                    // console.log(song)
+                    return<Song key={i} data={song} getSongUri={this.getSongUri}></Song>
+                    // return<Song key={i} data={song}></Song>
                 })}
              </div>
         );
