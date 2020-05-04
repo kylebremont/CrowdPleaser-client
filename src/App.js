@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { authEndpoint, clientId, redirectUri, scopes } from "./config";
 import hash from "./hash";
-import logo from "./logo.svg";
+import logo from "./spotify.svg";
 import "./App.css";
 import Playback from "./components/Playback";
 

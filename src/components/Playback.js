@@ -50,6 +50,9 @@ export default class Playback extends Component {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${access_token}`
               },
+            })
+            .catch((error) => {
+              console.error('Error:', error);
             });
           });
         };
@@ -79,13 +82,31 @@ export default class Playback extends Component {
          // Called when connected to the player created beforehand successfully
          player.addListener('ready', ({ device_id }) => {
            console.log('Ready with Device ID', device_id);
-     
-           this.setState({player});
-         });
-     
+
+           // TODO: make device id correspond to dictionary of tokens
+            var data = {}
+            data[device_id] = this.state.access_code;
+      
+            console.log(data)
+            fetch(`http://localhost:3500/devices`, {
+                  method: 'PUT',
+                  body: JSON.stringify(data),
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.state.access_code}`
+                  },
+                })
+                .catch((error) => {
+                  console.error('Error:', error);
+                });
+      
+            this.setState({player});
+          });
+      
          // Connect to the player created beforehand, this is equivalent to 
          // creating a new device which will be visible for Spotify Connect
          player.connect();
+
         }
     }
 
