@@ -124,7 +124,6 @@ export default class Playback extends Component {
           if (err) {
             return console.log(err);
           }
-          var trackURI = data.tracks.items[0].uri;
           var songs = []
           // console.log(data.tracks.items);
           for (let i = 0; i < 20; i++) {
@@ -138,6 +137,7 @@ export default class Playback extends Component {
 
     handleChange(event) {
       if (event.target.value === "" ) {
+        this.setState({songs: undefined})
         return;
       }
       this.setState({searchValue: event.target.value, songs: []}, this.searchSpotify);
@@ -166,7 +166,7 @@ export default class Playback extends Component {
                         <Button onClick={this.handleClick}>Search</Button>
                     </label>
                 </form>
-                {this.state.songs.map((song,i) => {
+                {this.state.songs !== undefined && this.state.songs.map((song,i) => {
                     // console.log(song)
                     return<Song key={i} data={song} getSongUri={this.getSongUri}></Song>
                     // return<Song key={i} data={song}></Song>
