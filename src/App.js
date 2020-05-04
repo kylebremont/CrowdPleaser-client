@@ -12,8 +12,14 @@ class App extends Component {
     super();
     this.state = {
       token: null,
-      loggedIn: false
+      loggedIn: false,
+      songInfo: null,
     };
+
+    this.queueElement = React.createRef();
+
+    this.addToQueue = this.addToQueue.bind(this);
+    this.removeFromQueue = this.removeFromQueue.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +33,14 @@ class App extends Component {
         loggedIn:  true
       });
     }
+  }
+
+  addToQueue(songInfo) {
+    this.queueElement.current.enqueue(songInfo);
+  }
+
+  removeFromQueue(songInfo) {
+    this.queueElement.current.dequeue(songInfo);
   }
 
   render() {
@@ -45,15 +59,16 @@ class App extends Component {
           {this.state.loggedIn && (
           <div>
             <Playback></Playback>
-            <div class="row">
-              <div class="column">
+            <div className="row">
+              <div className="column">
                 <Search
                   access_code={this.state.token}
+                  addToQueue={this.addToQueue}
                 ></Search>
               </div>
               <div className="column">
-                <Queue></Queue>
-              </div>
+              <Queue ref={this.queueElement}></Queue>
+            </div>
             </div>
           </div>
           )}

@@ -5,35 +5,35 @@ export default class Playback extends Component {
     constructor(props) {
         super(props);
     
-        this.state = {
-            item: {
-              album: {
-                images: [{ url: "" }]
-              },
-              name: "",
-              artists: [{ name: "" }],
-              duration_ms: 0
-            },
-            is_playing: "Paused",
-            progress_ms: 0
-          };
+        // this.state = {
+        //     item: {
+        //       album: {
+        //         images: [{ url: "" }]
+        //       },
+        //       name: "",
+        //       artists: [{ name: "" }],
+        //       duration_ms: 0
+        //     },
+        //     is_playing: "Paused",
+        //     progress_ms: 0
+        //   };
     }
 
     render() {
 
-        const backgroundStyles = {
-            backgroundImage:`url(${
-              this.props.item.album.images[0].url
-            })`,
-          };
+        // const backgroundStyles = {
+        //     backgroundImage:`url(${
+        //       this.props.item.album.images[0].url
+        //     })`,
+        //   };
         
-          const progressBarStyles = {
-            width: (this.props.progress_ms * 100 / this.props.item.duration_ms) + '%'
-          };
+        //   const progressBarStyles = {
+        //     width: (this.props.progress_ms * 100 / this.props.item.duration_ms) + '%'
+        //   };
         
         return (
             <div className="App">
-            <div className="main-wrapper">
+            {/* <div className="main-wrapper">
               <div className="now-playing__img">
                 <img src={this.props.item.album.images[0].url} />
               </div>
@@ -50,7 +50,7 @@ export default class Playback extends Component {
                 </div>
               </div>
               <div className="background" style={backgroundStyles} />{" "}
-            </div>
+            </div> */}
           </div>
         );
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Spotify from 'node-spotify-api'
 import { clientId, secret } from '../config';
-import Song from "./Song"
+import SearchResult from "./SearchResult"
 import { Button } from 'react-bootstrap';
 
 export default class Search extends Component {
@@ -88,7 +88,6 @@ export default class Search extends Component {
             var data = {}
             data[device_id] = this.state.access_code;
       
-            console.log(data)
             fetch(`http://localhost:3500/devices`, {
                   method: 'PUT',
                   body: JSON.stringify(data),
@@ -146,8 +145,8 @@ export default class Search extends Component {
       event.preventDefault();
     }
 
-    getSongUri(trackURI) {
-      this.setState({trackURI}, () => this.playTrack());
+    getSongUri(songInfo) {
+      this.setState({trackURI: songInfo.trackURI}, () => this.props.addToQueue(songInfo));
     }
 
     render() {
@@ -161,7 +160,7 @@ export default class Search extends Component {
                     </label>
                 </form>
                 {this.state.songs !== undefined && this.state.songs.map((song,i) => {
-                    return<Song key={i} data={song} getSongUri={this.getSongUri}></Song>
+                    return<SearchResult key={i} data={song} getSongUri={this.getSongUri}></SearchResult>
                 })}
              </div>
         );
