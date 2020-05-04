@@ -17,6 +17,9 @@ class App extends Component {
     };
 
     this.queueElement = React.createRef();
+    this.playbackElement = React.createRef();
+
+    this.playSong = this.playSong.bind(this);
 
     this.addToQueue = this.addToQueue.bind(this);
     this.removeFromQueue = this.removeFromQueue.bind(this);
@@ -43,6 +46,10 @@ class App extends Component {
     this.queueElement.current.dequeue(songInfo);
   }
 
+  playSong(songURI) {
+    this.playbackElement.current.setTrackURI(songURI)
+  }
+
   render() {
     return (
       <div className="App">
@@ -58,7 +65,7 @@ class App extends Component {
           )}
           {this.state.loggedIn && (
           <div>
-            <Playback></Playback>
+            <Playback ref={this.playbackElement} access_code={this.state.token}></Playback>
             <div className="row">
               <div className="column">
                 <Search
@@ -67,7 +74,7 @@ class App extends Component {
                 ></Search>
               </div>
               <div className="column">
-              <Queue ref={this.queueElement}></Queue>
+              <Queue ref={this.queueElement} playSong={this.playSong}></Queue>
             </div>
             </div>
           </div>
