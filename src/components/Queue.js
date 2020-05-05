@@ -22,10 +22,14 @@ export default class Queue extends Component {
     }
 
     dequeue() {
-        if (this.isEmpty()) {
+        if (this.state.queue.length === 1) {
             return "Underflow";
         }
-        return this.queue.shift();
+        var queue = this.state.queue;
+        queue.shift();
+        this.setState({queue})
+        console.log(queue[0])
+        this.props.playSong(queue[0])
     }
 
 

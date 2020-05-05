@@ -88,11 +88,12 @@ export default class Playback extends Component {
     getNextSong() {
       var currentTime = new Date().getTime();
       var timePlayed = currentTime - this.state.mostRecentStart + this.state.progress;
-      
+
       if (this.state.isPlaying && this.state.song.duration <= timePlayed) {
-        console.log('song should be over');
+        // fetch song from queue 
+        console.log('requesting song')
+        this.props.requestSong();
       } else {
-        console.log('song should not be over yet');
         return;
       }
     }

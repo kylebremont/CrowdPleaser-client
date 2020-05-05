@@ -21,7 +21,7 @@ class App extends Component {
     this.playSong = this.playSong.bind(this);
 
     this.addToQueue = this.addToQueue.bind(this);
-    this.removeFromQueue = this.removeFromQueue.bind(this);
+    this.requestSong = this.requestSong.bind(this);
   }
 
   componentDidMount() {
@@ -41,8 +41,8 @@ class App extends Component {
     this.queueElement.current.enqueue(songInfo);
   }
 
-  removeFromQueue(songInfo) {
-    this.queueElement.current.dequeue(songInfo);
+  requestSong() {
+    this.queueElement.current.dequeue();
   }
 
   playSong(song) {
@@ -62,7 +62,7 @@ class App extends Component {
           )}
           {this.state.loggedIn && (
           <div>
-            <Playback ref={this.playbackElement} access_code={this.state.token}></Playback>
+            <Playback ref={this.playbackElement} access_code={this.state.token} requestSong={this.requestSong}></Playback>
             <div className="row">
               <div className="column">
                 <Search
