@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { authEndpoint, clientId, redirectUri, scopes } from "./config";
 import hash from "./hash";
-import logo from "./spotify.svg";
 import "./App.css";
 import Search from "./components/Search";
 import Queue from "./components/Queue";
@@ -53,9 +52,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          
-          {!this.state.loggedIn && (
+        <div>
+        {!this.state.loggedIn && (
             <div>
               <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
                     "%20"
@@ -73,12 +71,12 @@ class App extends Component {
                 ></Search>
               </div>
               <div className="column">
-              <Queue ref={this.queueElement} playSong={this.playSong}></Queue>
-            </div>
+                <Queue ref={this.queueElement} playSong={this.playSong}></Queue>
+              </div>
             </div>
           </div>
           )}
-        </header>
+        </div>
       </div>
     );
   }

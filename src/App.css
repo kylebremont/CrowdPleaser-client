@@ -4,7 +4,6 @@
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
   pointer-events: none;
 }
 
@@ -110,6 +109,7 @@ body {
 .main-container {
   flex: 1;
 }
+
 
 .column {
   float: left;

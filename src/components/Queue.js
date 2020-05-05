@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './Queue.css'
-import SearchResult from './SearchResult';
-
 
 export default class Queue extends Component {
     constructor(props) {
@@ -16,7 +14,6 @@ export default class Queue extends Component {
 
     enqueue(song) {
         var queue = this.state.queue;
-        console.log(song)
         if (queue.length === 0) {
             this.props.playSong(song);
         }
@@ -39,7 +36,10 @@ export default class Queue extends Component {
                     if (i !== 0) {
                         return<div key={i} className="QueueItem">{song.name}</div>
                     }
-            })}</div>
+                    return null;
+                }
+            )}
+            </div>
         );
     }
 };

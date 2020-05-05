@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { clientId, secret } from '../config';
 import logo from '../spotify.svg';
-import { Button } from 'react-bootstrap';
 import PlayPause from './PlayPause'
+import "./Playback.css"
 
 export default class Playback extends Component {
     constructor(props) {
@@ -18,10 +17,13 @@ export default class Playback extends Component {
                 image: null,
                 artist: null,
             },
+
+            startTime: null,
+            endTime: null,
+            progress: 0,
             isPlaying: true,
-            progress: 0
+            
         }
-        var startTime = null;
         this.connectToSpotify = this.connectToSpotify.bind(this);
         this.playTrack = this.playTrack.bind(this);
         this.setSong = this.setSong.bind(this);
@@ -91,23 +93,27 @@ export default class Playback extends Component {
               }
             }
           }) => {
-              
-            // TODO: fix seeking 
+            var body;
+            var url;
             if (this.state.isPlaying) {
-                this.startTime = new Date().getTime();
-                var url =`https://api.spotify.com/v1/me/player/play?device_id=${id}`
-                console.log(this.startTime);
+                var startTime = new Date().getTime();
+                this.setState({startTime})
+                url =`https://api.spotify.com/v1/me/player/play?device_id=${id}`
+                body = {uris: [spotify_uri]}
+                if (this.state.progress > 0) {
+                    body["position_ms"] = this.state.progress;
+                } 
             } else {
-                this.endTime = new Date().getTime();
-                var url = `https://api.spotify.com/v1/me/player/pause?device_id=${id}`
-                console.log(this.startTime);
+                var endTime = new Date().getTime();
+                this.setState({progress: this.state.progress + (endTime-this.state.startTime)})
+                url = `https://api.spotify.com/v1/me/player/pause?device_id=${id}`
+                body = {uris: [spotify_uri]}
             }
-            var playState = this.state.isPlaying ?  'play' : 'pause';
 
             getOAuthToken(access_token => {
                 fetch(url, {
                 method: 'PUT',
-                body: JSON.stringify({ uris: [spotify_uri] }),
+                body: JSON.stringify(body),
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${access_token}`
@@ -144,7 +150,7 @@ export default class Playback extends Component {
             {this.state.song.name && (
             <div className="main-wrapper">
               <div className="now-playing__img">
-                <img src={this.state.song.image} />
+                <img src={this.state.song.image} alt="album cover" />
               </div>
               <div className="now-playing__side">
                 <div className="now-playing__name">{this.state.song.name}</div>
