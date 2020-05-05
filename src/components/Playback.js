@@ -17,7 +17,7 @@ export default class Playback extends Component {
                 image: null,
                 artist: null,
             },
-
+            mostRecentStart: -11111111,
             startTime: null,
             endTime: null,
             progress: 0,
@@ -27,6 +27,7 @@ export default class Playback extends Component {
         this.connectToSpotify = this.connectToSpotify.bind(this);
         this.playTrack = this.playTrack.bind(this);
         this.setSong = this.setSong.bind(this);
+        this.getNextSong = this.getNextSong.bind(this);
     }
 
 
@@ -83,6 +84,22 @@ export default class Playback extends Component {
         }
     }
 
+    getNextSong() {
+      var currentTime = new Date().getTime();
+      var timePlayed = currentTime - this.state.mostRecentStart;
+      console.log("duration:"+ this.state.song.duration)
+      console.log("time played:"+ timePlayed)
+      console.log("currenttime:" + currentTime)
+      console.log("most recetn start :" + this.state.mostRecentStart)
+
+      if (this.state.isPlaying && this.state.song.duration <= timePlayed) {
+        console.log('song should be over');
+      } else {
+        console.log('song should not be over yet');
+        return;
+      }
+    }
+
     playTrack() {
         const play = ({
             spotify_uri,
@@ -97,12 +114,16 @@ export default class Playback extends Component {
             var url;
             if (this.state.isPlaying) {
                 var startTime = new Date().getTime();
-                this.setState({startTime})
+                this.setState({startTime, mostRecentStart: startTime})
                 url =`https://api.spotify.com/v1/me/player/play?device_id=${id}`
                 body = {uris: [spotify_uri]}
                 if (this.state.progress > 0) {
                     body["position_ms"] = this.state.progress;
                 } 
+                // TELL SELF TO POP QUEUE AFTER PROGRESS >= DURATION
+                setTimeout(() => {this.getNextSong()}, this.state.song.duration-this.state.progress);
+
+
             } else {
                 var endTime = new Date().getTime();
                 this.setState({progress: this.state.progress + (endTime-this.state.startTime)})
