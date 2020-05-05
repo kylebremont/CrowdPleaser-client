@@ -17,7 +17,8 @@ export default class Playback extends Component {
                 image: null,
                 artist: null,
             },
-            mostRecentStart: -11111111,
+            mostRecentStart: Number.MAX_SAFE_INTEGER,
+            mostRecentEnd: Number.MIN_SAFE_INTEGER,
             startTime: null,
             endTime: null,
             progress: 0,
@@ -86,12 +87,8 @@ export default class Playback extends Component {
 
     getNextSong() {
       var currentTime = new Date().getTime();
-      var timePlayed = currentTime - this.state.mostRecentStart;
-      console.log("duration:"+ this.state.song.duration)
-      console.log("time played:"+ timePlayed)
-      console.log("currenttime:" + currentTime)
-      console.log("most recetn start :" + this.state.mostRecentStart)
-
+      var timePlayed = currentTime - this.state.mostRecentStart + this.state.progress;
+      
       if (this.state.isPlaying && this.state.song.duration <= timePlayed) {
         console.log('song should be over');
       } else {
@@ -114,19 +111,20 @@ export default class Playback extends Component {
             var url;
             if (this.state.isPlaying) {
                 var startTime = new Date().getTime();
-                this.setState({startTime, mostRecentStart: startTime})
+                this.setState({startTime, mostRecentStart: startTime},
+                  () => setTimeout(() => {this.getNextSong()}, this.state.song.duration-this.state.progress))
                 url =`https://api.spotify.com/v1/me/player/play?device_id=${id}`
                 body = {uris: [spotify_uri]}
                 if (this.state.progress > 0) {
                     body["position_ms"] = this.state.progress;
                 } 
                 // TELL SELF TO POP QUEUE AFTER PROGRESS >= DURATION
-                setTimeout(() => {this.getNextSong()}, this.state.song.duration-this.state.progress);
+                
 
 
             } else {
                 var endTime = new Date().getTime();
-                this.setState({progress: this.state.progress + (endTime-this.state.startTime)})
+                this.setState({progress: this.state.progress + (endTime-this.state.startTime), mostRecentEnd: endTime})
                 url = `https://api.spotify.com/v1/me/player/pause?device_id=${id}`
                 body = {uris: [spotify_uri]}
             }
