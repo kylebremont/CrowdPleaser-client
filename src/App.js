@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { authEndpoint, clientId, redirectUri, scopes } from "./config";
 import hash from "./hash";
-import logo from "./spotify.svg";
 import "./App.css";
 import Search from "./components/Search";
 import Queue from "./components/Queue";
-import Song from "./components/Song";
+import Playback from "./components/Playback";
 
 class App extends Component {
   constructor() {
@@ -17,8 +16,12 @@ class App extends Component {
     };
 
     this.queueElement = React.createRef();
+    this.playbackElement = React.createRef();
+
+    this.playSong = this.playSong.bind(this);
 
     this.addToQueue = this.addToQueue.bind(this);
+    this.removeFromQueue = this.removeFromQueue.bind(this);
   }
 
   componentDidMount() {
@@ -38,33 +41,42 @@ class App extends Component {
     this.queueElement.current.enqueue(songInfo);
   }
 
+  removeFromQueue(songInfo) {
+    this.queueElement.current.dequeue(songInfo);
+  }
+
+  playSong(song) {
+    this.playbackElement.current.setSong(song)
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1>welcome to crowdpleaser</h1>
-          {!this.state.loggedIn && (
+        <div>
+        {!this.state.loggedIn && (
             <div>
-            <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+              <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
                     "%20"
                 )}&response_type=token&show_dialog=true`}>Login to Spotify</a>
           </div>
           )}
           {this.state.loggedIn && (
+          <div>
+            <Playback ref={this.playbackElement} access_code={this.state.token}></Playback>
             <div className="row">
               <div className="column">
                 <Search
                   access_code={this.state.token}
                   addToQueue={this.addToQueue}
                 ></Search>
-            </div>
-            <div className="column">
-              <Queue ref={this.queueElement}></Queue>
+              </div>
+              <div className="column">
+                <Queue ref={this.queueElement} playSong={this.playSong}></Queue>
+              </div>
             </div>
           </div>
           )}
-        </header>
+        </div>
       </div>
     );
   }

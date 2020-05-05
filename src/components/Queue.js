@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Song from './Song';
-
+import './Queue.css'
 
 export default class Queue extends Component {
     constructor(props) {
@@ -15,6 +14,9 @@ export default class Queue extends Component {
 
     enqueue(song) {
         var queue = this.state.queue;
+        if (queue.length === 0) {
+            this.props.playSong(song);
+        }
         queue.push(song);
         this.setState({queue});
     }
@@ -28,9 +30,16 @@ export default class Queue extends Component {
 
 
     render() {
-        console.log(this.state.queue);
         return (
-            <div>buttsoup</div>
+            <div>
+                {this.state.queue !== undefined && this.state.queue.map((song, i) => {
+                    if (i !== 0) {
+                        return<div key={i} className="QueueItem">{song.name}</div>
+                    }
+                    return null;
+                }
+            )}
+            </div>
         );
     }
 };
