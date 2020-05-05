@@ -16,7 +16,7 @@ export default class Queue extends Component {
 
     enqueue(song) {
         var queue = this.state.queue;
-        // console.log(song)
+        console.log(song)
         if (queue.length === 0) {
             this.props.playSong(song);
         }

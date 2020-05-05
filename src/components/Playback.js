@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { clientId, secret } from '../config';
 import logo from '../spotify.svg';
+import { Button } from 'react-bootstrap';
+import PlayPause from './PlayPause'
+
 export default class Playback extends Component {
     constructor(props) {
         super(props);
@@ -15,13 +18,15 @@ export default class Playback extends Component {
                 image: null,
                 artist: null,
             },
-            // is_playing: "Paused",
-            // progress_ms: 0
+            isPlaying: true,
+            progress: 0
         }
+        var startTime = null;
         this.connectToSpotify = this.connectToSpotify.bind(this);
         this.playTrack = this.playTrack.bind(this);
         this.setSong = this.setSong.bind(this);
     }
+
 
     componentDidMount () {
         const script = document.createElement("script");
@@ -86,43 +91,45 @@ export default class Playback extends Component {
               }
             }
           }) => {
+              
+            // TODO: fix seeking 
+            if (this.state.isPlaying) {
+                this.startTime = new Date().getTime();
+                var url =`https://api.spotify.com/v1/me/player/play?device_id=${id}`
+                console.log(this.startTime);
+            } else {
+                this.endTime = new Date().getTime();
+                var url = `https://api.spotify.com/v1/me/player/pause?device_id=${id}`
+                console.log(this.startTime);
+            }
+            var playState = this.state.isPlaying ?  'play' : 'pause';
+
             getOAuthToken(access_token => {
-              fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+                fetch(url, {
                 method: 'PUT',
                 body: JSON.stringify({ uris: [spotify_uri] }),
                 headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${access_token}`
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
                 },
-              })
-              .catch((error) => {
+                })
+                .catch((error) => {
                 console.error('Error:', error);
-              });
+                });
             });
-          };
-      
-          play({
+        };
+    
+        play({
             playerInstance: this.state.player,
             spotify_uri: this.state.song.uri,
         });
-      }
+    }
 
     setSong(song) {
-        console.log(song.uri)
         this.setState({song}, () => this.playTrack());
     }
 
     render() {
-
-        // const backgroundStyles = {
-        //     backgroundImage:`url(${
-        //       this.props.item.album.images[0].url
-        //     })`,
-        //   };
-        
-        //   const progressBarStyles = {
-        //     width: (this.props.progress_ms * 100 / this.props.item.duration_ms) + '%'
-        //   };
         
         return (
             <div className="App">
@@ -133,6 +140,8 @@ export default class Playback extends Component {
                     <h1>welcome to crowdpleaser</h1>
                 </div>
             )}
+
+            {this.state.song.name && (
             <div className="main-wrapper">
               <div className="now-playing__img">
                 <img src={this.state.song.image} />
@@ -141,16 +150,14 @@ export default class Playback extends Component {
                 <div className="now-playing__name">{this.state.song.name}</div>
                 <div className="now-playing__artist">
                   {this.state.song.artist}
+                  <PlayPause  
+                    toggle={this.state.isPlaying}
+                    onClick={() => this.setState({isPlaying: !this.state.isPlaying}, () => this.playTrack())}>
+                 </PlayPause>
                 </div>
-                {/* <div className="now-playing__status">
-                  {this.props.is_playing ? "Playing" : "Paused"}
-                </div>
-                <div className="progress">
-                  <div className="progress__bar" style={progressBarStyles} />
-                </div> */}
               </div>
-              {/* <div className="background" style={backgroundStyles} />{" "} */}
             </div>
+            )}
           </div>
         );
     }
