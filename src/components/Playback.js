@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from '../spotify.svg';
-import PlayPause from './PlayPause'
+import PlayPause from './PlayPause';
 import "./Playback.css"
 
 export default class Playback extends Component {
@@ -17,18 +17,40 @@ export default class Playback extends Component {
                 image: null,
                 artist: null,
             },
-            mostRecentStart: Number.MAX_SAFE_INTEGER,
-            mostRecentEnd: Number.MIN_SAFE_INTEGER,
-            startTime: null,
-            endTime: null,
-            progress: 0,
             isPlaying: true,
-            
+            // timer stuff
+            time: 0,
+            isOn: false,
+            start: 0,
         }
         this.connectToSpotify = this.connectToSpotify.bind(this);
         this.playTrack = this.playTrack.bind(this);
         this.setSong = this.setSong.bind(this);
         this.getNextSong = this.getNextSong.bind(this);
+        // timer stuff
+        this.startTimer = this.startTimer.bind(this)
+        this.stopTimer = this.stopTimer.bind(this)
+        this.resetTimer = this.resetTimer.bind(this)
+    }
+
+    startTimer() {
+      this.setState({
+        isOn: true,
+        time: this.state.time,
+        start: Date.now() - this.state.time
+      })
+      this.timer = setInterval(() => this.setState({
+        time: Date.now() - this.state.start
+      }), 1);
+    }
+
+    stopTimer() {
+      this.setState({isOn: false})
+      clearInterval(this.timer)
+    }
+
+    resetTimer() {
+      this.setState({time: 0, isOn: false})
     }
 
 
@@ -86,10 +108,10 @@ export default class Playback extends Component {
     }
 
     getNextSong() {
-      var currentTime = new Date().getTime();
-      var timePlayed = currentTime - this.state.mostRecentStart + this.state.progress;
+      var timePlayed = this.state.time;
 
       if (this.state.isPlaying && this.state.song.duration <= timePlayed) {
+        this.resetTimer();
         // fetch song from queue 
         console.log('requesting song')
         this.props.requestSong();
@@ -111,21 +133,19 @@ export default class Playback extends Component {
             var body;
             var url;
             if (this.state.isPlaying) {
-                var startTime = new Date().getTime();
-                this.setState({startTime, mostRecentStart: startTime},
-                  () => setTimeout(() => {this.getNextSong()}, this.state.song.duration-this.state.progress))
+                this.startTimer();
+                setTimeout(() => {this.getNextSong()}, this.state.song.duration-this.state.time)
                 url =`https://api.spotify.com/v1/me/player/play?device_id=${id}`
                 body = {uris: [spotify_uri]}
-                if (this.state.progress > 0) {
-                    body["position_ms"] = this.state.progress;
+                if (this.state.time > 0) {
+                    body["position_ms"] = this.state.time;
                 } 
                 // TELL SELF TO POP QUEUE AFTER PROGRESS >= DURATION
                 
 
 
             } else {
-                var endTime = new Date().getTime();
-                this.setState({progress: this.state.progress + (endTime-this.state.startTime), mostRecentEnd: endTime})
+                this.stopTimer();
                 url = `https://api.spotify.com/v1/me/player/pause?device_id=${id}`
                 body = {uris: [spotify_uri]}
             }
