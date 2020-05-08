@@ -19,7 +19,7 @@ export default class Playback extends Component {
             },
             isPlaying: true,
             // timer stuff
-            time: 0,
+            progress: 0,
             isOn: false,
             start: 0,
         }
@@ -36,11 +36,11 @@ export default class Playback extends Component {
     startTimer() {
       this.setState({
         isOn: true,
-        time: this.state.time,
-        start: Date.now() - this.state.time
+        progress: this.state.progress,
+        start: Date.now() - this.state.progress
       })
       this.timer = setInterval(() => this.setState({
-        time: Date.now() - this.state.start
+        progress: Date.now() - this.state.start
       }), 1);
     }
 
@@ -50,7 +50,7 @@ export default class Playback extends Component {
     }
 
     resetTimer() {
-      this.setState({time: 0, isOn: false})
+      this.setState({progress: 0, isOn: false})
     }
 
 
@@ -108,7 +108,7 @@ export default class Playback extends Component {
     }
 
     getNextSong() {
-      var timePlayed = this.state.time;
+      var timePlayed = this.state.progress;
 
       if (this.state.isPlaying && this.state.song.duration <= timePlayed) {
         this.resetTimer();
@@ -134,11 +134,11 @@ export default class Playback extends Component {
             var url;
             if (this.state.isPlaying) {
                 this.startTimer();
-                setTimeout(() => {this.getNextSong()}, this.state.song.duration-this.state.time)
+                setTimeout(() => {this.getNextSong()}, this.state.song.duration-this.state.progress)
                 url =`https://api.spotify.com/v1/me/player/play?device_id=${id}`
                 body = {uris: [spotify_uri]}
-                if (this.state.time > 0) {
-                    body["position_ms"] = this.state.time;
+                if (this.state.progress > 0) {
+                    body["position_ms"] = this.state.progress;
                 } 
                 // TELL SELF TO POP QUEUE AFTER PROGRESS >= DURATION
                 
