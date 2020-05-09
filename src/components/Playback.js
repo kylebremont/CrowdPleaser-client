@@ -74,7 +74,7 @@ export default class Playback extends Component {
              // this token has to be gotten from the stupid fucking link: https://developer.spotify.com/documentation/web-playback-sdk/quick-start/
              callback(this.state.access_code);
            },
-           volume: 0.1
+           volume: 1
          });
      
          // Called when connected to the player created beforehand successfully
@@ -110,7 +110,9 @@ export default class Playback extends Component {
     getNextSong() {
       var timePlayed = this.state.progress;
 
-      if (this.state.isPlaying && this.state.song.duration <= timePlayed) {
+      console.log(this.state.song.duration);
+      console.log(timePlayed);
+      if (this.state.isPlaying && this.state.song.duration <= timePlayed+10) {
         this.resetTimer();
         // fetch song from queue 
         console.log('requesting song')
@@ -179,31 +181,31 @@ export default class Playback extends Component {
         
         return (
             <div className="App">
-                {this.connectToSpotify()}
-            {!this.state.song.name && (
-                <div>
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1>welcome to crowdpleaser</h1>
-                </div>
-            )}
+              {this.connectToSpotify()}
+              {!this.state.song.name && (
+                  <div>
+                      <img src={logo} className="App-logo" alt="logo" />
+                      <h1>welcome to crowdpleaser</h1>
+                  </div>
+              )}
 
-            {this.state.song.name && (
-            <div className="main-wrapper">
-              <div className="now-playing__img">
-                <img src={this.state.song.image} alt="album cover" />
-              </div>
-              <div className="now-playing__side">
-                <div className="now-playing__name">{this.state.song.name}</div>
-                <div className="now-playing__artist">
-                  {this.state.song.artist}
-                  <PlayPause  
-                    toggle={this.state.isPlaying}
-                    onClick={() => this.setState({isPlaying: !this.state.isPlaying}, () => this.playTrack())}>
-                 </PlayPause>
+              {this.state.song.name && (
+                <div className="main-wrapper">
+                  <div className="now-playing__img">
+                    <img src={this.state.song.image} alt="album cover" />
+                  </div>
+                  <div className="now-playing__side">
+                    <div className="now-playing__name">{this.state.song.name}</div>
+                    <div className="now-playing__artist">
+                      {this.state.song.artist}
+                      <PlayPause  
+                        toggle={this.state.isPlaying}
+                        onClick={() => this.setState({isPlaying: !this.state.isPlaying}, () => this.playTrack())}>
+                    </PlayPause>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            )}
+              )}
           </div>
         );
     }

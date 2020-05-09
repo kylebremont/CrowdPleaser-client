@@ -10,7 +10,6 @@ export default class Search extends Component {
         this.state = {
             access_code: props.access_code,
             player: null,
-            trackURI: null,
             searchValue: '',
             songs: []
         }
@@ -37,7 +36,6 @@ export default class Search extends Component {
             let song = data.tracks.items[i];
             songs.push({"name": song.name, "artist": song.artists[0].name, "uri": song.uri, "duration": song.duration_ms, "image": song.album.images[0].url})
           }
-          // this.setState({trackURI, songs});
           this.setState({songs});
       });
     }
@@ -56,7 +54,7 @@ export default class Search extends Component {
     }
 
     getSongUri(songInfo) {
-      this.setState({trackURI: songInfo.trackURI}, () => this.props.addToQueue(songInfo));
+      this.props.addToQueue(songInfo);
     }
 
     render() {
