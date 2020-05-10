@@ -43,7 +43,7 @@ html, body {
 
 body {
   background-color: #333;
-  color: #eee;
+  color: rgb(0, 0, 0);
   font-family: Helvetica, Arial;
   font-size: 3vmin;
 }

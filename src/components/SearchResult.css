@@ -1,0 +1,41 @@
+.column-1 {
+    float: left;
+    width: 25%;
+  }
+  
+
+.column-2 {
+    float: left;
+    width: 75%;
+}
+  
+  /* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+    height: 5%;
+    margin: 20px;
+}
+
+.row {
+    background-color: white;
+    border: black;
+    border-width: 10px;
+}
+
+
+.imgz {
+    margin-left: 25%;
+}
+
+.title {
+    float: left;
+    font-size: 20px;
+}
+
+.artist {
+    float: left;
+    font-size: 14px;
+}
+

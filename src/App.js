@@ -5,6 +5,8 @@ import "./App.css";
 import Search from "./components/Search";
 import Queue from "./components/Queue";
 import Playback from "./components/Playback";
+import { ProgressBar } from "react-bootstrap";
+
 
 class App extends Component {
   constructor() {
@@ -54,10 +56,10 @@ class App extends Component {
       <div className="App">
         <div>
         {!this.state.loggedIn && (
-            <div>
-              <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+          <div>
+            <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
                     "%20"
-                )}&response_type=token&show_dialog=true`}>Login to Spotify</a>
+              )}&response_type=token&show_dialog=true`}>Login to Spotify</a>
           </div>
           )}
           {this.state.loggedIn && (
