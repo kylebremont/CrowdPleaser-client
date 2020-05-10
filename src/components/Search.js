@@ -62,7 +62,7 @@ export default class Search extends Component {
             <div>
                 <form onSubmit={this.handleEnter}>
                     <label>
-                        Song:
+                        Search:
                         <input type="text" name="song" onChange={this.handleChange}/>
                     </label>
                 </form>

@@ -26,10 +26,14 @@
 
 .now-playing__img img {
     max-width: 80vmin;
-    width: 100%;
+    width: 60%;
 }
 
 .now-playing__side {
     margin-left: 5%;
     width: 45%;
+}
+
+.App {
+    background-image: linear-gradient(to bottom, #7296BF, #8F5684);
 }

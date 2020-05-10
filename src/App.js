@@ -5,7 +5,6 @@ import "./App.css";
 import Search from "./components/Search";
 import Queue from "./components/Queue";
 import Playback from "./components/Playback";
-import { ProgressBar } from "react-bootstrap";
 
 
 class App extends Component {

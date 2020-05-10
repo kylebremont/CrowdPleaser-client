@@ -39,11 +39,12 @@
 
 html, body {
   height: 100%;
+  background: #8F5684
 }
 
 body {
   background-color: #333;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   font-family: Helvetica, Arial;
   font-size: 3vmin;
 }

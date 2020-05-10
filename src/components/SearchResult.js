@@ -16,10 +16,10 @@ export default class SearchResult extends Component {
 
     render() {
         return (
-            <div onClick={() => { this.props.getSongUri(this.state) } }>
+            <div style={{cursor: "pointer"}} onClick={() => { this.props.getSongUri(this.state) } }>
                 <div className="row">
                     <div className="column-1">
-                        <img src={this.state.image} alt="album cover"  height="100px" className="imgz"/>
+                        <img src={this.state.image} alt="album cover" className="imgz"/>
                     </div>
                     <div className="column-2">
                         <div className="title">
@@ -29,7 +29,6 @@ export default class SearchResult extends Component {
                         <div className="artist">
                             {this.state.artist}
                         </div>
-                        
                     </div>
                 </div>
                 
