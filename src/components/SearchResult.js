@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import './SearchResult.css'
 
 export default class SearchResult extends Component {
     constructor(props) {
@@ -16,9 +16,23 @@ export default class SearchResult extends Component {
 
     render() {
         return (
-            <div>
-                <Button onClick={() => { this.props.getSongUri(this.state) } }>{this.state.name + ", " + this.state.artist}</Button>
-             </div>
+            <div style={{cursor: "pointer"}} onClick={() => { this.props.getSongUri(this.state) } }>
+                <div className="row">
+                    <div className="column-1">
+                        <img src={this.state.image} alt="album cover" className="imgz"/>
+                    </div>
+                    <div className="column-2">
+                        <div className="title">
+                            {this.state.name} 
+                        </div>
+                        <br></br>
+                        <div className="artist">
+                            {this.state.artist}
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
         );
     }
 }

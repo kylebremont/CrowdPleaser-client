@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from '../spotify.svg';
-import PlayPause from './PlayPause'
+import PlayPause from './PlayPause';
+import { BsFillSkipEndFill } from 'react-icons/bs';
+import { IconContext } from 'react-icons';
 import "./Playback.css"
 
 export default class Playback extends Component {
@@ -17,16 +19,40 @@ export default class Playback extends Component {
                 image: null,
                 artist: null,
             },
-
-            startTime: null,
-            endTime: null,
-            progress: 0,
             isPlaying: true,
-            
+            // timer stuff
+            progress: 0,
+            isOn: false,
+            start: 0,
         }
         this.connectToSpotify = this.connectToSpotify.bind(this);
         this.playTrack = this.playTrack.bind(this);
         this.setSong = this.setSong.bind(this);
+        this.getNextSong = this.getNextSong.bind(this);
+        // timer stuff
+        this.startTimer = this.startTimer.bind(this)
+        this.stopTimer = this.stopTimer.bind(this)
+        this.resetTimer = this.resetTimer.bind(this)
+    }
+
+    startTimer() {
+      this.setState({
+        isOn: true,
+        progress: this.state.progress,
+        start: Date.now() - this.state.progress
+      })
+      this.timer = setInterval(() => this.setState({
+        progress: Date.now() - this.state.start
+      }), 1);
+    }
+
+    stopTimer() {
+      this.setState({isOn: false})
+      clearInterval(this.timer)
+    }
+
+    resetTimer() {
+      this.setState({progress: 0, isOn: false})
     }
 
 
@@ -50,7 +76,7 @@ export default class Playback extends Component {
              // this token has to be gotten from the stupid fucking link: https://developer.spotify.com/documentation/web-playback-sdk/quick-start/
              callback(this.state.access_code);
            },
-           volume: 0.1
+           volume: 1
          });
      
          // Called when connected to the player created beforehand successfully
@@ -83,6 +109,22 @@ export default class Playback extends Component {
         }
     }
 
+    getNextSong(skipped) {
+      var timePlayed = this.state.progress;
+
+      console.log(this.state.song.duration);
+      console.log(timePlayed);
+      if ((this.state.isPlaying && this.state.song.duration <= timePlayed+10) || skipped) {
+        this.stopTimer();
+        this.resetTimer();
+        // fetch song from queue 
+        console.log('requesting song')
+        this.props.requestSong();
+      } else {
+        return;
+      }
+    }
+
     playTrack() {
         const play = ({
             spotify_uri,
@@ -96,16 +138,19 @@ export default class Playback extends Component {
             var body;
             var url;
             if (this.state.isPlaying) {
-                var startTime = new Date().getTime();
-                this.setState({startTime})
+                this.startTimer();
+                setTimeout(() => {this.getNextSong(false)}, this.state.song.duration-this.state.progress)
                 url =`https://api.spotify.com/v1/me/player/play?device_id=${id}`
                 body = {uris: [spotify_uri]}
                 if (this.state.progress > 0) {
                     body["position_ms"] = this.state.progress;
                 } 
+                // TELL SELF TO POP QUEUE AFTER PROGRESS >= DURATION
+                
+
+
             } else {
-                var endTime = new Date().getTime();
-                this.setState({progress: this.state.progress + (endTime-this.state.startTime)})
+                this.stopTimer();
                 url = `https://api.spotify.com/v1/me/player/pause?device_id=${id}`
                 body = {uris: [spotify_uri]}
             }
@@ -139,31 +184,34 @@ export default class Playback extends Component {
         
         return (
             <div className="App">
-                {this.connectToSpotify()}
-            {!this.state.song.name && (
-                <div>
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1>welcome to crowdpleaser</h1>
-                </div>
-            )}
+              {this.connectToSpotify()}
+              {!this.state.song.name && (
+                  <div>
+                      <img src={logo} className="App-logo" alt="logo" />
+                      <h1 className='header'>welcome to crowdpleaser</h1>
+                  </div>
+              )}
 
-            {this.state.song.name && (
-            <div className="main-wrapper">
-              <div className="now-playing__img">
-                <img src={this.state.song.image} alt="album cover" />
-              </div>
-              <div className="now-playing__side">
-                <div className="now-playing__name">{this.state.song.name}</div>
-                <div className="now-playing__artist">
-                  {this.state.song.artist}
-                  <PlayPause  
-                    toggle={this.state.isPlaying}
-                    onClick={() => this.setState({isPlaying: !this.state.isPlaying}, () => this.playTrack())}>
-                 </PlayPause>
+              {this.state.song.name && (
+                <div className="main-wrapper">
+                  <div className="now-playing__img">
+                    <img src={this.state.song.image} alt="album cover" />
+                  </div>
+                  <div className="now-playing__side">
+                    <div className="now-playing__name">{this.state.song.name}</div>
+                    <div className="now-playing__artist">
+                      {this.state.song.artist}
+                      <PlayPause  
+                        toggle={this.state.isPlaying}
+                        onClick={() => this.setState({isPlaying: !this.state.isPlaying}, () => this.playTrack())}>
+                      </PlayPause>
+                      <IconContext.Provider value={{ color: 'black', className: 'skip-button' }}>
+                        <BsFillSkipEndFill onClick={() => this.getNextSong(true)}></BsFillSkipEndFill>
+                      </IconContext.Provider>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-            )}
+              )}
           </div>
         );
     }

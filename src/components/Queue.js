@@ -7,6 +7,7 @@ export default class Queue extends Component {
 
         this.state = {
             queue: [],
+            isPlaying: false,
         }
         this.enqueue = this.enqueue.bind(this);
         this.dequeue = this.dequeue.bind(this);
@@ -14,29 +15,52 @@ export default class Queue extends Component {
 
     enqueue(song) {
         var queue = this.state.queue;
-        if (queue.length === 0) {
-            this.props.playSong(song);
-        }
-        queue.push(song);
-        this.setState({queue});
+        // first time song is selected, start playing and don't add to queue
+        if (!this.state.isPlaying) {
+            this.setState({isPlaying: true}, () => this.props.playSong(song));
+        } else {
+            queue.push(song);
+            this.setState({queue});
+        } 
     }
 
     dequeue() {
-        if (this.isEmpty()) {
-            return "Underflow";
+        if (this.state.queue.length === 0) {
+            // if there is nothing in the queue, set isPlaying to false for next song choice
+            this.setState({isPlaying: false});
+        } else {
+            var queue = this.state.queue;
+            var upNext = queue.shift();
+            this.setState({queue})
+            console.log(upNext)
+            this.props.playSong(upNext)
         }
-        return this.queue.shift();
     }
+
 
 
     render() {
         return (
             <div>
+                Up next
                 {this.state.queue !== undefined && this.state.queue.map((song, i) => {
-                    if (i !== 0) {
-                        return<div key={i} className="QueueItem">{song.name}</div>
-                    }
-                    return null;
+                    return (
+                        <div key={i} className="row">
+                            <div className="column-1">
+                                <img src={song.image} alt="album cover" className="imgz"/>
+                            </div>
+                             <div className="column-2">
+                                <div className="title">
+                                    {song.name} 
+                                </div>
+                                <br></br>
+                                <div className="artist">
+                                    {song.artist}
+                                </div>
+                                
+                            </div>
+                        </div>
+                    )
                 }
             )}
             </div>

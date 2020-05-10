@@ -6,6 +6,7 @@ import Search from "./components/Search";
 import Queue from "./components/Queue";
 import Playback from "./components/Playback";
 
+
 class App extends Component {
   constructor() {
     super();
@@ -21,7 +22,7 @@ class App extends Component {
     this.playSong = this.playSong.bind(this);
 
     this.addToQueue = this.addToQueue.bind(this);
-    this.removeFromQueue = this.removeFromQueue.bind(this);
+    this.requestSong = this.requestSong.bind(this);
   }
 
   componentDidMount() {
@@ -41,8 +42,8 @@ class App extends Component {
     this.queueElement.current.enqueue(songInfo);
   }
 
-  removeFromQueue(songInfo) {
-    this.queueElement.current.dequeue(songInfo);
+  requestSong() {
+    this.queueElement.current.dequeue();
   }
 
   playSong(song) {
@@ -54,15 +55,15 @@ class App extends Component {
       <div className="App">
         <div>
         {!this.state.loggedIn && (
-            <div>
-              <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+          <div>
+            <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
                     "%20"
-                )}&response_type=token&show_dialog=true`}>Login to Spotify</a>
+              )}&response_type=token&show_dialog=true`}>Login to Spotify</a>
           </div>
           )}
           {this.state.loggedIn && (
           <div>
-            <Playback ref={this.playbackElement} access_code={this.state.token}></Playback>
+            <Playback ref={this.playbackElement} access_code={this.state.token} requestSong={this.requestSong}></Playback>
             <div className="row">
               <div className="column">
                 <Search
