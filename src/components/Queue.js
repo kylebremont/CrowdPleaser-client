@@ -43,7 +43,21 @@ export default class Queue extends Component {
         return (
             <div>
                 {this.state.queue !== undefined && this.state.queue.map((song, i) => {
-                    return<div key={i} className="QueueItem">{song.name}</div>
+                    return (
+                        <div key={i} className="row">
+                            <div className="track__queue">
+                                <span className="order__number">{i+1}.</span>
+                                <span className="track__info">
+                                    <span className="track__cover" style={{backgroundImage: 'url('+song.image+')'}}></span>
+                                    <span className="track__summary">
+                                        <span className="track__artist">{song.artist}</span>
+                                        <span className="track__separator"></span>
+                                        <span className="QueueItem">{song.name}</span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    )
                 }
             )}
             </div>

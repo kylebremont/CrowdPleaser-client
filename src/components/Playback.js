@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from '../spotify.svg';
 import PlayPause from './PlayPause';
+import { BsFillSkipEndFill } from 'react-icons/bs';
+import { IconContext } from 'react-icons';
 import "./Playback.css"
 
 export default class Playback extends Component {
@@ -107,12 +109,13 @@ export default class Playback extends Component {
         }
     }
 
-    getNextSong() {
+    getNextSong(skipped) {
       var timePlayed = this.state.progress;
 
       console.log(this.state.song.duration);
       console.log(timePlayed);
-      if (this.state.isPlaying && this.state.song.duration <= timePlayed+10) {
+      if ((this.state.isPlaying && this.state.song.duration <= timePlayed+10) || skipped) {
+        this.stopTimer();
         this.resetTimer();
         // fetch song from queue 
         console.log('requesting song')
@@ -136,7 +139,7 @@ export default class Playback extends Component {
             var url;
             if (this.state.isPlaying) {
                 this.startTimer();
-                setTimeout(() => {this.getNextSong()}, this.state.song.duration-this.state.progress)
+                setTimeout(() => {this.getNextSong(false)}, this.state.song.duration-this.state.progress)
                 url =`https://api.spotify.com/v1/me/player/play?device_id=${id}`
                 body = {uris: [spotify_uri]}
                 if (this.state.progress > 0) {
@@ -185,7 +188,7 @@ export default class Playback extends Component {
               {!this.state.song.name && (
                   <div>
                       <img src={logo} className="App-logo" alt="logo" />
-                      <h1>welcome to crowdpleaser</h1>
+                      <h1 className='header'>welcome to crowdpleaser</h1>
                   </div>
               )}
 
@@ -201,7 +204,10 @@ export default class Playback extends Component {
                       <PlayPause  
                         toggle={this.state.isPlaying}
                         onClick={() => this.setState({isPlaying: !this.state.isPlaying}, () => this.playTrack())}>
-                    </PlayPause>
+                      </PlayPause>
+                      <IconContext.Provider value={{ color: 'black', className: 'skip-button' }}>
+                        <BsFillSkipEndFill onClick={() => this.getNextSong(true)}></BsFillSkipEndFill>
+                      </IconContext.Provider>
                     </div>
                   </div>
                 </div>
