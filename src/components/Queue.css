@@ -1,3 +1,101 @@
 .QueueItem {
-    color: black;
+    color: #3a354e;
+    margin-bottom: .2em;
+    font-weight: 700;
+}
+
+.track__summary {
+    flex-direction: column-reverse;
+}
+
+.list-page__content {
+    position: relative;
+    z-index: 3;
+    background: #fff;
+    min-height: 100px;
+    margin: 0 -1.5em;
+    padding: 20px 1.5em;
+}
+
+.list-page__list {
+    position: relative;
+    z-index: 4;
+}
+
+.track-history__item {
+    padding: 1em .75em;
+    text-align: left;
+    font-size: 1.1em;
+    line-height: 1.2;
+    margin: 0 -1em;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #50496d;
+    -webkit-transform: translate3d(0,-4px,0);
+    transform: translate3d(0,-4px,0);
+    opacity: 0;
+    -webkit-animation-name: mic-drop;
+    animation-name: mic-drop;
+    -webkit-animation-timing-function: ease;
+    animation-timing-function: ease;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+}
+
+.order-number {
+    -ms-flex: 12px 0;
+    flex: 12px 0;
+    text-align: right;
+    margin-right: 20px;
+    font-weight: 700;
+    color: #aba5c3;
+    font-size: .85em;
+}
+
+.track__info {
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex: 3 1;
+    flex: 3 1;
+}
+
+.track__cover {
+    width: 40px;
+    min-width: 40px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 1em;
+    background: #fafafa;
+    float: left;
+    -ms-flex: 40px 0;
+    flex: 40px 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    -webkit-transition: opacity .1s linear;
+    -o-transition: opacity .1s linear;
+    transition: opacity .1s linear;
+}
+
+.track__summary {
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+}
+
+.track__artist {
+    white-space: nowrap;
+}
+
+.track__separator {
+    display: none;
+}
+
+.track__track-name {
+    color: #3a354e;
+    margin-bottom: .2em;
+    font-weight: 700;
 }
