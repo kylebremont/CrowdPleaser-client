@@ -1,5 +1,9 @@
 /** Now Playing **/
 
+.Playback {
+    background-color: transparent;
+}
+
 .now-playing__name {
     font-size: 1.5em;
     margin-bottom: 0.2em;

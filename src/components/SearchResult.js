@@ -17,16 +17,16 @@ export default class SearchResult extends Component {
     render() {
         return (
             <div style={{cursor: "pointer"}} onClick={() => { this.props.getSongUri(this.state) } }>
-                <div className="row">
-                    <div className="column-1">
+                <div id="row">
+                    <div id="art-column">
                         <img src={this.state.image} alt="album cover" className="imgz"/>
                     </div>
-                    <div className="column-2">
-                        <div className="title">
+                    <div id="info-column">
+                        <div id="song-title">
                             {this.state.name} 
                         </div>
                         <br></br>
-                        <div className="artist">
+                        <div id="song-artist">
                             {this.state.artist}
                         </div>
                     </div>

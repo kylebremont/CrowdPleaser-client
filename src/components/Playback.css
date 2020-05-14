@@ -1,7 +1,6 @@
-.QueueItem {
-    color: black;
+.Playback {
+    background-color: transparent;
 }
-
 /** Now Playing **/
 
 .now-playing__name {
@@ -32,8 +31,4 @@
 .now-playing__side {
     margin-left: 5%;
     width: 45%;
-}
-
-.App {
-    background-image: linear-gradient(to bottom, #7296BF, #8F5684);
 }

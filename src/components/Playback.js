@@ -183,7 +183,7 @@ export default class Playback extends Component {
     render() {
         
         return (
-            <div className="App">
+            <div className="Playback">
               {this.connectToSpotify()}
               {!this.state.song.name && (
                   <div>

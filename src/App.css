@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom, #7296BF, #8F5684);
 }
 
 .App-logo {
@@ -39,7 +41,7 @@
 
 html, body {
   height: 100%;
-  background: #8F5684
+  background: transparent;
 }
 
 body {

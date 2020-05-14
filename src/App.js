@@ -64,7 +64,7 @@ class App extends Component {
           {this.state.loggedIn && (
           <div>
             <Playback ref={this.playbackElement} access_code={this.state.token} requestSong={this.requestSong}></Playback>
-            <div className="row">
+            <div className="row" style={{backgroundColor:  'transparent'}}>
               <div className="column">
                 <Search
                   access_code={this.state.token}
