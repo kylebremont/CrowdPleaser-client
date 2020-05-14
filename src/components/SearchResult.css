@@ -21,7 +21,11 @@
 }
 
 #row {
-    background-color: #8F5684;
+    background-color: white;
+}
+
+#row:hover {
+    background-color: whitesmoke;
 }
 
 
@@ -33,12 +37,12 @@
 #song-title {
     float: left;
     font-size: 20px;
-    color: white;
+    color: black;
 }
 
 #song-artist {
     float: left;
     font-size: 16px;
-    color: white;
+    color: grey;
 }
 

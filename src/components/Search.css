@@ -1,3 +1,9 @@
-.Search {
+#search {
     background-color: transparent;
 }
+
+#scrollbox {
+    width: 50vw;
+    height: 50vh;
+    overflow: scroll;
+} 

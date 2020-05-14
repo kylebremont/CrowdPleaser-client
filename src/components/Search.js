@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Spotify from 'node-spotify-api'
 import { clientId, secret } from '../config';
 import SearchResult from "./SearchResult"
+import './Search.css';
 
 export default class Search extends Component {
     constructor(props) {
@@ -59,16 +60,18 @@ export default class Search extends Component {
 
     render() {
         return (
-            <div>
+            <div id='search'>
                 <form onSubmit={this.handleEnter}>
                     <label>
                         Search:
                         <input type="text" name="song" onChange={this.handleChange}/>
                     </label>
                 </form>
-                {this.state.songs !== undefined && this.state.songs.map((song,i) => {
-                    return<SearchResult key={i} data={song} getSongUri={this.getSongUri}></SearchResult>
-                })}
+                <div id="scrollbox">
+                  {this.state.songs !== undefined && this.state.songs.map((song,i) => {
+                      return<SearchResult key={i} data={song} getSongUri={this.getSongUri}></SearchResult>
+                  })}
+                </div>
              </div>
         );
     }
