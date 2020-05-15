@@ -52,33 +52,43 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div>
-        {!this.state.loggedIn && (
-          <div>
-            <a href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-                    "%20"
-              )}&response_type=token&show_dialog=true`}>Login to Spotify</a>
-          </div>
-          )}
-          {this.state.loggedIn && (
-          <div>
-            <Playback ref={this.playbackElement} access_code={this.state.token} requestSong={this.requestSong}></Playback>
-            <div className="row" style={{backgroundColor:  'transparent'}}>
-              <div className="column">
-                <Search
-                  access_code={this.state.token}
-                  addToQueue={this.addToQueue}
-                ></Search>
+        <div className="App">
+          <h1 className="Appheader">
+            crowdpleaser
+          </h1>
+          {!this.state.loggedIn && (
+            <div>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <a id="login" href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+                      "%20"
+                )}&response_type=token&show_dialog=true`}>Login to Spotify</a>
+            </div>
+            )}
+            {this.state.loggedIn && (
+            <div>
+              <div className="row" style={{backgroundColor:  'transparent'}}>
+                <div className="column">
+                  <Queue ref={this.queueElement} playSong={this.playSong}></Queue>
+                </div>
+                <div className="column">
+                  <Search
+                    access_code={this.state.token}
+                    addToQueue={this.addToQueue}
+                  ></Search>
+                </div>
               </div>
-              <div className="column">
-                <Queue ref={this.queueElement} playSong={this.playSong}></Queue>
+              <div id="app-playback">
+                <Playback ref={this.playbackElement} access_code={this.state.token} requestSong={this.requestSong}></Playback>
               </div>
             </div>
-          </div>
-          )}
+            )}
         </div>
-      </div>
     );
   }
 }

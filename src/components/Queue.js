@@ -42,28 +42,39 @@ export default class Queue extends Component {
     render() {
         return (
             <div>
-                playing next
-                {this.state.queue !== undefined && this.state.queue.map((song, i) => {
-                    return (
-                        <div key={i} className="row">
-                            <div className="column-1">
-                                <img src={song.image} alt="album cover" className="imgz"/>
-                            </div>
-                             <div className="column-2">
-                                <div className="title">
-                                    {song.name} 
-                                </div>
-                                <br></br>
-                                <div className="artist">
-                                    {song.artist}
-                                </div>
-                                
-                            </div>
+                <div className="Queue">
+                    {this.state.queue.length === 0  && (
+                        <div className="queue-warning">
+                            Search for songs to add to queue.
                         </div>
-                    )
-                }
-            )}
+                        )
+                    }
+
+                <div id="queue-scrollbox">
+                    {this.state.queue !== undefined && this.state.queue.map((song, i) => {
+                    
+                        return (
+                            <div key={i} className="row">
+                                <div className="column-1">
+                                    <img src={song.image} alt="album cover" className="imgz"/>
+                                </div>
+                                <div className="column-2">
+                                    <div className="title">
+                                        {song.name} 
+                                    </div>
+                                    <br></br>
+                                    <div className="artist">
+                                        {song.artist}
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        )
+                    }
+                )}
+                </div>
             </div>
+        </div>
         );
     }
 };

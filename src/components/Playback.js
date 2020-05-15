@@ -183,30 +183,26 @@ export default class Playback extends Component {
     render() {
         
         return (
-            <div className="Playback">
+            <div className="playback-footer">
               {this.connectToSpotify()}
-              {!this.state.song.name && (
-                  <div>
-                      <img src={logo} className="App-logo" alt="logo" />
-                      <h1 className='header'>welcome to crowdpleaser</h1>
-                  </div>
-              )}
-
               {this.state.song.name && (
-                <div className="main-wrapper">
+                <div className="playback-row">
+                  <div className="playback-col">
                     <img src={this.state.song.image} alt="album cover" />
-                  <div className="now-playing__side">
-                    <div className="now-playing__name">{this.state.song.name}</div>
-                    <div className="now-playing__artist">
-                      {this.state.song.artist}
-                      <PlayPause  
-                        toggle={this.state.isPlaying}
-                        onClick={() => this.setState({isPlaying: !this.state.isPlaying}, () => this.playTrack())}>
-                      </PlayPause>
-                      <IconContext.Provider value={{ color: 'black', className: 'skip-button' }}>
+                  </div>
+                  <div className="playback-col">
+                    {this.state.song.name}
+                    <br/>
+                    {this.state.song.artist}
+                  </div>
+                  <div className="playback-col" id="playpausebutton">
+                    <PlayPause
+                      toggle={this.state.isPlaying}
+                      onClick={() => this.setState({isPlaying: !this.state.isPlaying}, () => this.playTrack())}>
+                    </PlayPause>
+                    <IconContext.Provider value={{ color: 'black', className: 'skip-button' }}>
                         <BsFillSkipEndFill onClick={() => this.getNextSong(true)}></BsFillSkipEndFill>
-                      </IconContext.Provider>
-                    </div>
+                    </IconContext.Provider>
                   </div>
                 </div>
               )}

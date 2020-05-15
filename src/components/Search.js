@@ -62,12 +62,12 @@ export default class Search extends Component {
         return (
             <div id='search'>
                 <form onSubmit={this.handleEnter}>
-                  <div className="searchbox">
+                    <div className="searchbox">
                     <i className="fa fa-search"></i>
                     <input type="text" name="song" placeholder="Search" onChange={this.handleChange}/>
                   </div>
                 </form>
-                <div id="scrollbox">
+                <div id="search-scrollbox">
                   {this.state.songs !== undefined && this.state.songs.map((song,i) => {
                       return<SearchResult key={i} data={song} getSongUri={this.getSongUri}></SearchResult>
                   })}

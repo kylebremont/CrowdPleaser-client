@@ -1,5 +1,9 @@
-.Playback {
-    background-color: transparent;
+.playback-footer {
+    background: rgba(0, 0, 0, 0.377);
+    bottom: 0;
+    width: 100%;
+    overflow: auto;
+    position: fixed;
 }
 /** Now Playing **/
 
@@ -16,13 +20,24 @@
     margin-bottom: 1em;
 }
 
-.main-wrapper img {
-    max-width: 80vmin;
-    width: 30%;
-    margin: 5vh;
+.playback-col img {
+    width: 10vw;
 }
 
 .now-playing__side {
     margin-left: 5%;
     width: 45%;
+}
+
+.playback-row {
+
+}
+
+.playback-col {
+    float: left;
+    width: 33%;
+}
+
+#playpausebutton {
+    
 }
