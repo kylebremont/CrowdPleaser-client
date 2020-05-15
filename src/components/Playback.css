@@ -16,16 +16,10 @@
     margin-bottom: 1em;
 }
 
-.now-playing__img {
-    float: left;
-    margin-right: 10px;
-    text-align: right;
-    width: 45%;
-}
-
-.now-playing__img img {
+.main-wrapper img {
     max-width: 80vmin;
-    width: 60%;
+    width: 30%;
+    margin: 5vh;
 }
 
 .now-playing__side {

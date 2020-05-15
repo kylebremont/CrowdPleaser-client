@@ -194,9 +194,7 @@ export default class Playback extends Component {
 
               {this.state.song.name && (
                 <div className="main-wrapper">
-                  <div className="now-playing__img">
                     <img src={this.state.song.image} alt="album cover" />
-                  </div>
                   <div className="now-playing__side">
                     <div className="now-playing__name">{this.state.song.name}</div>
                     <div className="now-playing__artist">

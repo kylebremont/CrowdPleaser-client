@@ -1,9 +1,32 @@
 #search {
     background-color: transparent;
+   
+}
+
+input {
+    border-radius: 25px;
+    padding-left: 12%;
+    border-style: hidden; 
+    float: left;
 }
 
 #scrollbox {
-    width: 50vw;
-    height: 50vh;
+    width: 26vw;
+    height: 60vh;
     overflow: scroll;
+    margin-left: 5.5%;
+    border-radius: 0 0 15px 15px;
 } 
+
+.searchbox i {
+    position: relative;
+    color: black;
+    margin-top: .5%;
+    left: 2.5%;
+    float: left;
+}
+
+.searchbox {
+    width: 200%;
+    float: left;
+}

@@ -17,7 +17,6 @@
     display: table;
     clear: both;
     height: 5%;
-    margin: 5px;
 }
 
 #row {
@@ -25,13 +24,16 @@
 }
 
 #row:hover {
-    background-color: whitesmoke;
+    background-color: gainsboro;
 }
 
 
 .imgz {
     margin-left: 40%;
+    margin-top: 5%;
+    margin-bottom: 5%;
     width: 50%;
+
 }
 
 #song-title {

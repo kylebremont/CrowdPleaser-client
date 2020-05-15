@@ -42,7 +42,7 @@ export default class Queue extends Component {
     render() {
         return (
             <div>
-                Up next
+                playing next
                 {this.state.queue !== undefined && this.state.queue.map((song, i) => {
                     return (
                         <div key={i} className="row">
