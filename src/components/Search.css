@@ -1,33 +1,10 @@
 #search {
-    background-color: transparent;
-   
-}
-
-input {
-    border-radius: 0 0 0 0;
-    padding-left: 12%;
-    border-style: hidden; 
-    float: left;
+	background-color: white;
+	align-self: center;
 }
 
 #search-scrollbox {
-    width: 28.6vw;
-    height: 60vh;
-    overflow: scroll;
-    margin-left: 2.7%;
-    border-radius: 0 0 0 0;
-    
-} 
-
-.searchbox i {
-    position: relative;
-    color: black;
-    margin-top: .5%;
-    left: 2.5%;
-    float: left;
-}
-
-.searchbox {
-    width: 200%;
-    float: left;
+	width: 100%;
+	height: 100vh;
+	overflow: scroll;
 }

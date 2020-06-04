@@ -1,43 +1,43 @@
 .playback-footer {
-    background: rgba(0, 0, 0, 0.377);
-    bottom: 0;
-    width: 100%;
-    overflow: auto;
-    position: fixed;
+	background: rgb(151, 151, 151);
+	bottom: 0;
+	width: 60%;
+	overflow: hidden;
+	position: fixed;
+	height: 165px;
+	line-height: 165px;
 }
 /** Now Playing **/
 
 .now-playing__name {
-    font-size: 1.5em;
-    margin-bottom: 0.2em;
+	font-size: 1.5em;
 }
 
 .now-playing__artist {
-    margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 .now-playing__status {
-    margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 .playback-col img {
-    width: 10vw;
+	width: 10vw;
 }
 
 .now-playing__side {
-    margin-left: 5%;
-    width: 45%;
-}
-
-.playback-row {
-
+	margin-left: 5%;
+	width: 45%;
 }
 
 .playback-col {
-    float: left;
-    width: 33%;
+	float: left;
+	width: 33%;
+	display: table;
 }
 
-#playpausebutton {
-    
+#content {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: normal;
 }
