@@ -67,7 +67,13 @@ export default class Search extends Component {
 			<div id="search">
 				<form onSubmit={this.handleEnter}>
 					<div className="searchbox">
-						<input type="text" name="song" placeholder="Search" onChange={this.handleChange} />
+						<input
+							type="text"
+							name="song"
+							placeholder="enter a song or artist"
+							onChange={this.handleChange}
+							style={{ borderRadius: '3px' }}
+						/>
 					</div>
 				</form>
 				<div id="search-scrollbox">

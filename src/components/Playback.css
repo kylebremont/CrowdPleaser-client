@@ -1,8 +1,8 @@
 .playback-footer {
-	background: rgb(151, 151, 151);
+	background: rgba(36, 36, 36, 0.705);
 	bottom: 0;
 	width: 60%;
-	overflow: hidden;
+	overflow: auto;
 	position: fixed;
 	height: 165px;
 	line-height: 165px;
