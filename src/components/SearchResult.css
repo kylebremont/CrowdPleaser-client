@@ -1,49 +1,45 @@
 #art-column {
-    float: left;
-    width: 25%;
-    justify-content: right;
-  }
-  
+	float: left;
+	width: 25%;
+	justify-content: right;
+}
 
 #info-column {
-    float: left;
-    width: 75%;
-    padding: 5px 0;
+	float: left;
+	width: 75%;
+	padding: 25px 0;
 }
-  
-  /* Clear floats after the columns */
+
+/* Clear floats after the columns */
 #row:after {
-    content: "";
-    display: table;
-    clear: both;
-    height: 5%;
+	content: "";
+	display: table;
+	clear: both;
+	height: 5%;
 }
 
 #row {
-    background-color: white;
+	background-color: white;
+	height: 15vh;
 }
 
 #row:hover {
-    background-color: gainsboro;
+	background-color: gainsboro;
 }
 
-
 .imgz {
-    margin-left: 40%;
-    margin-top: 10%;
-    margin-bottom: 5%;
-    width: 50%;
+	width: 60%;
+	margin: 10px;
 }
 
 #song-title {
-    float: left;
-    font-size: 20px;
-    color: black;
+	float: left;
+	font-size: 20px;
+	color: black;
 }
 
 #song-artist {
-    float: left;
-    font-size: 16px;
-    color: grey;
+	float: left;
+	font-size: 16px;
+	color: grey;
 }
-

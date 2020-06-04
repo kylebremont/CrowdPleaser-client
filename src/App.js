@@ -1,96 +1,104 @@
-import React, { Component } from "react";
-import { authEndpoint, clientId, redirectUri, scopes } from "./config";
-import hash from "./hash";
-import "./App.css";
-import Search from "./components/Search";
-import Queue from "./components/Queue";
-import Playback from "./components/Playback";
+import React, { Component } from 'react';
+import { authEndpoint, clientId, redirectUri, scopes } from './config';
+import hash from './hash';
+import './App.css';
+import Search from './components/Search';
+import Queue from './components/Queue';
+import Playback from './components/Playback';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
+import 'react-tabs/style/react-tabs.css';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      token: null,
-      loggedIn: false,
-      songInfo: null,
-    };
+	constructor() {
+		super();
+		this.state = {
+			token: null,
+			loggedIn: false,
+			songInfo: null
+		};
 
-    this.queueElement = React.createRef();
-    this.playbackElement = React.createRef();
+		this.queueElement = React.createRef();
+		this.playbackElement = React.createRef();
 
-    this.playSong = this.playSong.bind(this);
+		this.playSong = this.playSong.bind(this);
 
-    this.addToQueue = this.addToQueue.bind(this);
-    this.requestSong = this.requestSong.bind(this);
-  }
+		this.addToQueue = this.addToQueue.bind(this);
+		this.requestSong = this.requestSong.bind(this);
+	}
 
-  componentDidMount() {
-    let _token = hash.access_token;
-   
-    if (_token) {
-      
-      // Set token
-      this.setState({
-        token: _token,
-        loggedIn:  true
-      });
-    }
-  }
+	componentDidMount() {
+		let _token = hash.access_token;
 
-  addToQueue(songInfo) {
-    this.queueElement.current.enqueue(songInfo);
-  }
+		if (_token) {
+			// Set token
+			this.setState({
+				token: _token,
+				loggedIn: true
+			});
+		}
+	}
 
-  requestSong() {
-    this.queueElement.current.dequeue();
-  }
+	addToQueue(songInfo) {
+		this.queueElement.current.enqueue(songInfo);
+	}
 
-  playSong(song) {
-    this.playbackElement.current.setSong(song)
-  }
+	requestSong() {
+		this.queueElement.current.dequeue();
+	}
 
-  render() {
-    return (
-        <div className="App">
-          <h1 className="Appheader">
-            crowdpleaser
-          </h1>
-          {!this.state.loggedIn && (
-            <div>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <a id="login" href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-                      "%20"
-                )}&response_type=token&show_dialog=true`}>Login to Spotify</a>
-            </div>
-            )}
-            {this.state.loggedIn && (
-            <div>
-              <div className="row" style={{backgroundColor:  'transparent'}}>
-                <div className="column">
-                  <Queue ref={this.queueElement} playSong={this.playSong}></Queue>
-                </div>
-                <div className="column">
-                  <Search
-                    access_code={this.state.token}
-                    addToQueue={this.addToQueue}
-                  ></Search>
-                </div>
-              </div>
-              <div id="app-playback">
-                <Playback ref={this.playbackElement} access_code={this.state.token} requestSong={this.requestSong}></Playback>
-              </div>
-            </div>
-            )}
-        </div>
-    );
-  }
+	playSong(song) {
+		this.playbackElement.current.setSong(song);
+	}
+
+	render() {
+		return (
+			<div className="App">
+				<div className="app-head">crowdpleaser</div>
+				{!this.state.loggedIn && (
+					<div>
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
+						<a
+							id="login"
+							href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+								'%20'
+							)}&response_type=token&show_dialog=true`}
+						>
+							Login to Spotify
+						</a>
+					</div>
+				)}
+				{this.state.loggedIn && (
+					<div className="Appcontent">
+						<Tabs forceRenderTabPanel={true}>
+							<TabList style={{ color: 'black' }}>
+								<Tab>up next</Tab>
+								<Tab>search</Tab>
+							</TabList>
+
+							<TabPanel>
+								<Queue ref={this.queueElement} playSong={this.playSong} />
+							</TabPanel>
+							<TabPanel>
+								<Search access_code={this.state.token} addToQueue={this.addToQueue} />
+							</TabPanel>
+						</Tabs>
+						<Playback
+							ref={this.playbackElement}
+							access_code={this.state.token}
+							requestSong={this.requestSong}
+						/>
+					</div>
+				)}
+			</div>
+		);
+	}
 }
 
 export default App;

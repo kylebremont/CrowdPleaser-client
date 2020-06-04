@@ -1,139 +1,148 @@
 .App {
-  text-align: center;
-  min-height: 100vh;
-  /* FFA69E */
-  /* CA7968 */
-  /* #1FD760 */
-  /*  */
-  /*  */
-  /* background: linear-gradient(to bottom, rgb(19, 19, 19), 80%, #CA7968, 99%, black); */
-  background:
-      linear-gradient(217deg, rgba(114, 150, 191,.8), rgba(114, 150, 191,0) 70.71%),
-      linear-gradient(336deg, rgba(0,0,0,1), rgba(0,0,0,0) 70.71%),
-      linear-gradient(127deg, rgba(171, 103, 160,.8), rgba(171, 103, 160,0)70.71%);
-      
+	text-align: center;
+	min-height: 100vh;
+	background: #f6f6f6;
+}
+
+.Appcontent {
+	text-align: center;
+	min-height: 100vh;
+	margin: auto;
+	width: 60vw;
+	background: white;
+	font-family: Rubik;
+}
+
+.app-head {
+	color: black;
+	font-weight: bold;
+	font-family: Rubik;
+	padding: 30px;
+	background-image: linear-gradient(to bottom right, rgb(171, 206, 235), rgb(228, 150, 228));
+	width: 60vw;
+	margin: auto;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  pointer-events: none;
+	animation: App-logo-spin infinite 20s linear;
+	pointer-events: none;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
-html, body {
-  height: 100%;
-  background: transparent;
-  overflow: hidden;
+html,
+body {
+	height: 100%;
+	background: transparent;
+	overflow: hidden;
 }
 
 body {
-  background-color: #333;
-  color: rgb(255, 255, 255);
-  font-family: Helvetica, Arial;
-  font-size: 3vmin;
+	background-color: #333;
+	color: rgb(255, 255, 255);
+	font-family: Helvetica, Arial;
+	font-size: 3vmin;
 }
 
 .hidden {
-  display: none;
+	display: none;
 }
 
 /** Buttons **/
 
 .btn {
-  background-color: transparent;
-  border-radius: 2em;
-  border: 0.2em solid #1ecd97;
-  color: #1ecd97;
-  cursor: pointer;
-  font-size: 3vmin;
-  padding: 0.7em 1.5em;
-  text-transform: uppercase;
-  transition: all 0.25s ease;
+	background-color: transparent;
+	border-radius: 2em;
+	border: 0.2em solid #1ecd97;
+	color: #1ecd97;
+	cursor: pointer;
+	font-size: 3vmin;
+	padding: 0.7em 1.5em;
+	text-transform: uppercase;
+	transition: all 0.25s ease;
 }
 
 .btn:hover {
-  background: #1ecd97;
-  color: #333;
+	background: #1ecd97;
+	color: #333;
 }
 
 .btn--login {
-  margin: 0 auto;
+	margin: 0 auto;
 }
 
 /** Background **/
 
 .background {
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-size: cover;
-  background-position: center center;
-  filter: blur(8em) opacity(0.6);
-  position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-size: cover;
+	background-position: center center;
+	filter: blur(8em) opacity(0.6);
+	position: absolute;
 }
 
 .main-wrapper {
-  align-items: center;
-  display: flex;
-  height: 100%;
-  margin: 7.5% auto;
-  justify-content: center;
-  position: relative;
-  width: 80%;
-  z-index: 1;
+	align-items: center;
+	display: flex;
+	height: 100%;
+	margin: 7.5% auto;
+	justify-content: center;
+	position: relative;
+	width: 80%;
+	z-index: 1;
 }
 
 .container {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  height: 100%;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	height: 100%;
 }
 
 .main-container {
-  flex: 1;
+	flex: 1;
 }
 
-
 .column {
-  float: left;
-  width: 50%;
+	float: left;
+	width: 50%;
 }
 
 /* Clear floats after the columns */
 .row:after {
-  content: "";
-  display: table;
-  clear: both;
+	content: "";
+	display: table;
+	clear: both;
 }
 
 #app-playback {
-  vertical-align: bottom;
+	vertical-align: bottom;
 }
 
 #login {
-  border: solid;
-  border-radius: 30px;
-  border-style: rounded;
-  color: black;
-  padding: 10px;
+	border: solid;
+	border-radius: 30px;
+	border-style: rounded;
+	color: black;
+	padding: 10px;
 }
 
 h1 {
-  text-shadow: 2px 2px #080808;
+	text-shadow: 2px 2px #080808;
 }

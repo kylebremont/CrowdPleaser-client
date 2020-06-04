@@ -1,0 +1,59 @@
+#rank-column {
+	float: left;
+	width: 2.5%;
+	justify-content: center;
+}
+
+#art-column {
+	float: left;
+	width: 20%;
+	justify-content: center;
+}
+
+#info-column {
+	float: left;
+	width: 70%;
+	padding: 25px 0;
+}
+
+/* Clear floats after the columns */
+#row:after {
+	content: "";
+	display: table;
+	clear: both;
+	height: 5%;
+}
+
+#row {
+	background-color: white;
+	height: 10%;
+}
+
+#row:hover {
+	background-color: gainsboro;
+}
+
+.imgz {
+	width: 60%;
+	margin: 10px;
+}
+
+#song-rank {
+	padding: 55px 0;
+	float: right;
+	font-size: 20px;
+	align: right;
+	color: black;
+}
+
+#song-title {
+	float: left;
+	font-size: 20px;
+	color: black;
+}
+
+#song-artist {
+	float: left;
+	font-size: 16px;
+	color: grey;
+}
