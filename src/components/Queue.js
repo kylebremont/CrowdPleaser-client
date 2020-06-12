@@ -7,6 +7,7 @@ export default class Queue extends Component {
 		super(props);
 
 		this.state = {
+			current_song: null,
 			queue: [],
 			isPlaying: false
 		};
@@ -20,6 +21,12 @@ export default class Queue extends Component {
 		if (!this.state.isPlaying) {
 			this.setState({ isPlaying: true }, () => this.props.playSong(song));
 		} else {
+			console.log(song);
+			for (var key in queue) {
+				if (queue[key] === this.state.current_song || queue[key] === song) {
+					return;
+				}
+			}
 			queue.push(song);
 			this.setState({ queue });
 		}
@@ -28,9 +35,11 @@ export default class Queue extends Component {
 	dequeue() {
 		if (this.state.queue.length === 0) {
 			// if there is nothing in the queue, set isPlaying to false for next song choice
+			// this.setState({ current_song: queue[0] });
 			this.setState({ isPlaying: false });
 		} else {
 			var queue = this.state.queue;
+			this.setState({ current_song: queue[0] });
 			var upNext = queue.shift();
 			this.setState({ queue });
 			console.log(upNext);

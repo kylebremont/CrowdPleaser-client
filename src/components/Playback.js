@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BsFillSkipEndFill, BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
+import { Line } from 'rc-progress';
 import './Playback.css';
 
 export default class Playback extends Component {
@@ -173,39 +174,52 @@ export default class Playback extends Component {
 			<div className="playback-footer">
 				{this.connectToSpotify()}
 				{this.state.song.name && (
-					<div className="playback-row">
-						<div className="playback-col">
-							<img src={this.state.song.image} alt="album cover" />
-						</div>
-						<div className="playback-col">
-							<div id="content">
-								{this.state.song.name}
-								<br />
-								{this.state.song.artist}
+					<div>
+						<div className="content-row">
+							<div className="playback-col">
+								<img src={this.state.song.image} alt="album cover" />
+							</div>
+							<div className="playback-col">
+								<div>
+									{this.state.song.name}
+									<br />
+									{this.state.song.artist}
+								</div>
+							</div>
+							<div className="playback-col" id="playpausebutton">
+								{/* this.setState({ isPlaying: !this.state.isPlaying }, () => this.playTrack()) */}
+
+								<IconContext.Provider value={{ color: 'black', className: 'playpause-button' }}>
+									{this.state.isPlaying ? (
+										<BsFillPauseFill
+											size={60}
+											onClick={() =>
+												this.setState({ isPlaying: !this.state.isPlaying }, () =>
+													this.playTrack()
+												)}
+										/>
+									) : (
+										<BsFillPlayFill
+											size={60}
+											onClick={() =>
+												this.setState({ isPlaying: !this.state.isPlaying }, () =>
+													this.playTrack()
+												)}
+										/>
+									)}
+								</IconContext.Provider>
+
+								<IconContext.Provider value={{ color: 'black', className: 'skip-button' }}>
+									<BsFillSkipEndFill size={60} onClick={() => this.getNextSong(true)} />
+								</IconContext.Provider>
 							</div>
 						</div>
-						<div className="playback-col" id="playpausebutton">
-							{/* this.setState({ isPlaying: !this.state.isPlaying }, () => this.playTrack()) */}
-
-							<IconContext.Provider value={{ color: 'black', className: 'playpause-button' }}>
-								{this.state.isPlaying ? (
-									<BsFillPauseFill
-										size={60}
-										onClick={() =>
-											this.setState({ isPlaying: !this.state.isPlaying }, () => this.playTrack())}
-									/>
-								) : (
-									<BsFillPlayFill
-										size={60}
-										onClick={() =>
-											this.setState({ isPlaying: !this.state.isPlaying }, () => this.playTrack())}
-									/>
-								)}
-							</IconContext.Provider>
-
-							<IconContext.Provider value={{ color: 'black', className: 'skip-button' }}>
-								<BsFillSkipEndFill size={60} onClick={() => this.getNextSong(true)} />
-							</IconContext.Provider>
+						<div className="progress-row">
+							<Line
+								percent={this.state.progress / this.state.song.duration * 100}
+								strokeWidth="0.5"
+								strokeColor="green"
+							/>
 						</div>
 					</div>
 				)}
