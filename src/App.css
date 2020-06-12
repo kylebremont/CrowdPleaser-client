@@ -17,10 +17,11 @@
 	color: black;
 	font-weight: bold;
 	font-family: Rubik;
-	padding: 30px;
+	padding: 5vh;
 	background-image: linear-gradient(to bottom right, rgb(171, 206, 235), rgb(228, 150, 228));
 	width: 60vw;
 	margin: auto;
+	height: 125px;
 }
 
 .App-logo {

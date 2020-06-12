@@ -11,6 +11,7 @@
     "jquery": "^3.4.1",
     "node-sass": "^4.14.1",
     "node-spotify-api": "^1.1.1",
+    "rc-progress": "^3.0.0",
     "react": "^16.8.4",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.8.4",
