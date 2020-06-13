@@ -9,6 +9,7 @@ export default class Playback extends Component {
 		super(props);
 
 		this.state = {
+			party: props.party,
 			token: props.access_code,
 			player: null,
 			song: {
@@ -125,7 +126,22 @@ export default class Playback extends Component {
 	}
 
 	setSong(song) {
-		this.setState({ song }, () => this.playTrack());
+		fetch(`http://localhost:3500/change_playing?party_code=${this.state.party}`, {
+			method: 'PUT',
+			body: JSON.stringify(song),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+			.catch((error) => {
+				console.error('Error:', error);
+			})
+			.then((response) => response.json())
+			.then((response) => {
+				console.log(response);
+				this.setState({ song: response }, () => this.playTrack());
+			});
+		// this.setState({ song }, () => this.playTrack());
 	}
 
 	connectToSpotify() {

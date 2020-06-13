@@ -7,6 +7,7 @@ export default class GuestPlayback extends Component {
 		super(props);
 
 		this.state = {
+			party: props.party,
 			token: props.access_code,
 			player: null,
 			song: {
@@ -24,6 +25,7 @@ export default class GuestPlayback extends Component {
 		};
 		this.setSong = this.setSong.bind(this);
 		this.getNextSong = this.getNextSong.bind(this);
+		this.GetCurrentlyPlaying = this.GetCurrentlyPlaying.bind(this);
 		// timer stuff
 		this.startTimer = this.startTimer.bind(this);
 		this.stopTimer = this.stopTimer.bind(this);
@@ -54,13 +56,19 @@ export default class GuestPlayback extends Component {
 		this.setState({ progress: 0, isOn: false });
 	}
 
+	GetCurrentlyPlaying() {
+		fetch(`http://localhost:3500/currently_playing?party_code=${this.state.party}`).then((res) => res.json()).then(
+			(res) => {
+				this.setState({ song: res });
+			},
+			(error) => {
+				console.error(error);
+			}
+		);
+	}
+
 	componentDidMount() {
-		const script = document.createElement('script');
-
-		script.src = 'https://sdk.scdn.co/spotify-player.js';
-		script.async = true;
-
-		document.body.appendChild(script);
+		this.GetCurrentlyPlaying();
 	}
 
 	getNextSong(skipped) {

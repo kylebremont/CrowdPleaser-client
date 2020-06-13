@@ -118,10 +118,15 @@ class App extends Component {
 								ref={this.playbackElement}
 								access_code={this.state.token}
 								requestSong={this.requestSong}
+								party={this.state.party}
 							/>
 						)}
 						{!this.state.isHost && (
-							<GuestPlayback ref={this.playbackElement} requestSong={this.requestSong} />
+							<GuestPlayback
+								ref={this.playbackElement}
+								requestSong={this.requestSong}
+								party={this.state.party}
+							/>
 						)}
 					</div>
 				)}
