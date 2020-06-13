@@ -9,26 +9,34 @@ export default class Queue extends Component {
 		this.state = {
 			current_song: null,
 			queue: [],
-			isPlaying: false
+			isPlaying: false,
+			party: props.party
 		};
 		this.enqueue = this.enqueue.bind(this);
 		this.dequeue = this.dequeue.bind(this);
 	}
 
 	enqueue(song) {
-		var queue = this.state.queue;
 		// first time song is selected, start playing and don't add to queue
 		if (!this.state.isPlaying) {
 			this.setState({ isPlaying: true }, () => this.props.playSong(song));
 		} else {
-			console.log(song);
-			for (var key in queue) {
-				if (queue[key] === this.state.current_song || queue[key] === song) {
-					return;
+			console.log(JSON.stringify(song));
+			fetch(`http://localhost:3500/queue_song?party_code=${this.state.party}`, {
+				method: 'PUT',
+				body: JSON.stringify(song),
+				headers: {
+					'Content-Type': 'application/json'
 				}
-			}
-			queue.push(song);
-			this.setState({ queue });
+			})
+				.catch((error) => {
+					console.error('Error:', error);
+				})
+				.then((response) => response.json())
+				.then((response) => {
+					this.setState({ queue: response });
+				});
+			// this.setState({ queue });
 		}
 	}
 

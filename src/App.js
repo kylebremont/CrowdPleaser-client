@@ -101,7 +101,7 @@ class App extends Component {
 							</TabList>
 
 							<TabPanel>
-								<Queue ref={this.queueElement} playSong={this.playSong} />
+								<Queue ref={this.queueElement} playSong={this.playSong} party={this.state.party} />
 							</TabPanel>
 							<TabPanel>
 								<Search access_code={this.state.token} addToQueue={this.addToQueue} />
