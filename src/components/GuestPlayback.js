@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { BsFillSkipEndFill, BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
-import { IconContext } from 'react-icons';
 import { Line } from 'rc-progress';
 import './Playback.css';
 
-export default class Playback extends Component {
+export default class GuestPlayback extends Component {
 	constructor(props) {
 		super(props);
 

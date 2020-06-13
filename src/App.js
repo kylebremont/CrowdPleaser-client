@@ -7,6 +7,7 @@ import Queue from './components/Queue';
 import Playback from './components/Playback';
 import GuestPlayback from './components/GuestPlayback';
 import JoinOrCreate from './components/JoinOrCreate';
+import Playlists from './components/Playlists';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import 'react-tabs/style/react-tabs.css';
@@ -46,7 +47,6 @@ class App extends Component {
 	}
 
 	setParty(party_id, isHost) {
-		console.log(party_id);
 		this.setState({ party: party_id, isHost });
 	}
 
@@ -100,6 +100,7 @@ class App extends Component {
 							<TabList style={{ color: 'black' }}>
 								<Tab>up next</Tab>
 								<Tab>search</Tab>
+								<Tab>playlists</Tab>
 							</TabList>
 
 							<TabPanel>
@@ -107,6 +108,9 @@ class App extends Component {
 							</TabPanel>
 							<TabPanel>
 								<Search access_code={this.state.token} addToQueue={this.addToQueue} />
+							</TabPanel>
+							<TabPanel>
+								<Playlists access_token={this.state.token} addToQueue={this.addToQueue} />
 							</TabPanel>
 						</Tabs>
 						{this.state.isHost && (
