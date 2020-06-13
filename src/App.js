@@ -5,6 +5,7 @@ import './App.css';
 import Search from './components/Search';
 import Queue from './components/Queue';
 import Playback from './components/Playback';
+import JoinOrCreate from './components/JoinOrCreate';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import 'react-tabs/style/react-tabs.css';
@@ -15,7 +16,8 @@ class App extends Component {
 		this.state = {
 			token: null,
 			loggedIn: false,
-			songInfo: null
+			songInfo: null,
+			party: null
 		};
 
 		this.queueElement = React.createRef();
@@ -25,6 +27,8 @@ class App extends Component {
 
 		this.addToQueue = this.addToQueue.bind(this);
 		this.requestSong = this.requestSong.bind(this);
+
+		this.setParty = this.setParty.bind(this);
 	}
 
 	componentDidMount() {
@@ -37,6 +41,11 @@ class App extends Component {
 				loggedIn: true
 			});
 		}
+	}
+
+	setParty(party_id) {
+		console.log(party_id);
+		this.setState({ party: party_id });
 	}
 
 	addToQueue(songInfo) {
@@ -55,7 +64,8 @@ class App extends Component {
 		return (
 			<div className="App">
 				<div className="app-head">crowdpleaser</div>
-				{!this.state.loggedIn && (
+				{!this.state.loggedIn &&
+				!this.state.party && (
 					<div>
 						<br />
 						<br />
@@ -74,8 +84,16 @@ class App extends Component {
 						</a>
 					</div>
 				)}
-				{this.state.loggedIn && (
+				{this.state.loggedIn &&
+				!this.state.party && (
 					<div className="Appcontent">
+						<JoinOrCreate access_token={this.state.token} setParty={this.setParty} />
+					</div>
+				)}
+				{this.state.loggedIn &&
+				this.state.party && (
+					<div className="Appcontent">
+						party code: <div style={{ fontWeight: 'bold' }}>{this.state.party}</div>
 						<Tabs forceRenderTabPanel={true}>
 							<TabList style={{ color: 'black' }}>
 								<Tab>up next</Tab>

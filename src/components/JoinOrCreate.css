@@ -1,0 +1,25 @@
+#join {
+	border: solid;
+	border-radius: 30px;
+	border-style: rounded;
+	color: black;
+	padding: 10px;
+}
+
+#create {
+	font-weight: bold;
+	color: black;
+}
+
+#error {
+	color: red;
+	font-size: medium;
+}
+
+.JoinOrCreate {
+	color: black;
+}
+
+a:hover {
+	text-decoration: underline;
+}
