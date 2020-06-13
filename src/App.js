@@ -5,6 +5,7 @@ import './App.css';
 import Search from './components/Search';
 import Queue from './components/Queue';
 import Playback from './components/Playback';
+import GuestPlayback from './components/GuestPlayback';
 import JoinOrCreate from './components/JoinOrCreate';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
@@ -17,7 +18,8 @@ class App extends Component {
 			token: null,
 			loggedIn: false,
 			songInfo: null,
-			party: null
+			party: null,
+			isHost: false
 		};
 
 		this.queueElement = React.createRef();
@@ -43,9 +45,9 @@ class App extends Component {
 		}
 	}
 
-	setParty(party_id) {
+	setParty(party_id, isHost) {
 		console.log(party_id);
-		this.setState({ party: party_id });
+		this.setState({ party: party_id, isHost });
 	}
 
 	addToQueue(songInfo) {
@@ -107,11 +109,16 @@ class App extends Component {
 								<Search access_code={this.state.token} addToQueue={this.addToQueue} />
 							</TabPanel>
 						</Tabs>
-						<Playback
-							ref={this.playbackElement}
-							access_code={this.state.token}
-							requestSong={this.requestSong}
-						/>
+						{this.state.isHost && (
+							<Playback
+								ref={this.playbackElement}
+								access_code={this.state.token}
+								requestSong={this.requestSong}
+							/>
+						)}
+						{!this.state.isHost && (
+							<GuestPlayback ref={this.playbackElement} requestSong={this.requestSong} />
+						)}
 					</div>
 				)}
 			</div>

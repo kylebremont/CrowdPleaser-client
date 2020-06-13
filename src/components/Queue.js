@@ -21,7 +21,6 @@ export default class Queue extends Component {
 		if (!this.state.isPlaying) {
 			this.setState({ isPlaying: true }, () => this.props.playSong(song));
 		} else {
-			console.log(JSON.stringify(song));
 			fetch(`http://localhost:3500/queue_song?party_code=${this.state.party}`, {
 				method: 'PUT',
 				body: JSON.stringify(song),
