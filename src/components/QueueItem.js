@@ -16,6 +16,9 @@ export default class SearchResult extends Component {
 	}
 
 	render() {
+		console.log('IN ITEM');
+		console.log(this.state);
+		console.log('\n\n\n');
 		return (
 			<div
 				style={{ cursor: 'pointer' }}

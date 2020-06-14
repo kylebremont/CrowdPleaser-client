@@ -10,15 +10,18 @@ export default class Queue extends Component {
 			current_song: null,
 			queue: [],
 			isPlaying: false,
-			party: props.party
+			party: props.party,
+			isHost: props.isHost
 		};
 		this.enqueue = this.enqueue.bind(this);
 		this.dequeue = this.dequeue.bind(this);
+		this.GetQueue = this.GetQueue.bind(this);
+		this.GetCurrentlyPlaying = this.GetCurrentlyPlaying.bind(this);
 	}
 
 	enqueue(song) {
 		// first time song is selected, start playing and don't add to queue
-		if (!this.state.isPlaying) {
+		if (!this.state.isPlaying && this.state.isHost) {
 			this.setState({ isPlaying: true }, () => this.props.playSong(song));
 		} else {
 			fetch(`http://localhost:3500/queue_song?party_code=${this.state.party}`, {
@@ -48,10 +51,48 @@ export default class Queue extends Component {
 			var queue = this.state.queue;
 			this.setState({ current_song: queue[0] });
 			var upNext = queue.shift();
-			this.setState({ queue });
 			console.log(upNext);
-			this.props.playSong(upNext);
+
+			fetch(`http://localhost:3500/dequeue_song?party_code=${this.state.party}`, {
+				method: 'PUT'
+			})
+				.catch((error) => {
+					console.error('Error:', error);
+				})
+				.then((response) => response.json())
+				.then((response) => {
+					this.setState({ queue: response }, () => this.props.playSong(upNext));
+				});
 		}
+	}
+
+	GetQueue() {
+		fetch(`http://localhost:3500/queue?party_code=${this.state.party}`)
+			.catch((error) => {
+				console.error('Error:', error);
+			})
+			.then((response) => response.json())
+			.then((response) => {
+				this.setState({ queue: response });
+			});
+	}
+
+	GetCurrentlyPlaying() {
+		fetch(`http://localhost:3500/currently_playing?party_code=${this.state.party}`)
+			.catch((error) => {
+				console.error('Error:', error);
+			})
+			.then((response) => response.json())
+			.then((response) => {
+				if (response.length !== 0) {
+					this.setState({ current_song: response, isPlaying: true });
+				}
+			});
+	}
+
+	componentDidMount() {
+		this.GetQueue();
+		this.GetCurrentlyPlaying();
 	}
 
 	render() {
@@ -65,6 +106,8 @@ export default class Queue extends Component {
 					<div id="queue-scrollbox">
 						{this.state.queue !== undefined &&
 							this.state.queue.map((song, i) => {
+								console.log('IN QUEUE');
+								console.log(song);
 								return <QueueItem key={i} rank={i + 1} data={song} getSongUri={this.getSongUri} />;
 							})}
 					</div>

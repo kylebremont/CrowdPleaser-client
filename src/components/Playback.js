@@ -138,7 +138,6 @@ export default class Playback extends Component {
 			})
 			.then((response) => response.json())
 			.then((response) => {
-				console.log(response);
 				this.setState({ song: response }, () => this.playTrack());
 			});
 		// this.setState({ song }, () => this.playTrack());
