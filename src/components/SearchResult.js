@@ -10,7 +10,8 @@ export default class SearchResult extends Component {
 			artist: props.data.artist,
 			uri: props.data.uri,
 			image: props.data.image,
-			duration: props.data.duration
+			duration: props.data.duration,
+			votes: 0
 		};
 	}
 

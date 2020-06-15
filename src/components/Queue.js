@@ -106,9 +106,17 @@ export default class Queue extends Component {
 					<div id="queue-scrollbox">
 						{this.state.queue !== undefined &&
 							this.state.queue.map((song, i) => {
-								console.log('IN QUEUE');
-								console.log(song);
-								return <QueueItem key={i} rank={i + 1} data={song} getSongUri={this.getSongUri} />;
+								// console.log('IN QUEUE');
+								// console.log(song);
+								return (
+									<QueueItem
+										key={i}
+										rank={i + 1}
+										data={song}
+										party={this.state.party}
+										getSongUri={this.getSongUri}
+									/>
+								);
 							})}
 					</div>
 				</div>
