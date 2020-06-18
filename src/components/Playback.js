@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BsFillSkipEndFill, BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import { Line } from 'rc-progress';
+import { apiUrl } from './../config';
 import './Playback.css';
 
 export default class Playback extends Component {
@@ -126,7 +127,7 @@ export default class Playback extends Component {
 	}
 
 	setSong(song) {
-		fetch(`http://localhost:3500/change_playing?party_code=${this.state.party}`, {
+		fetch(`${apiUrl}change_playing?party_code=${this.state.party}`, {
 			method: 'PUT',
 			body: JSON.stringify(song),
 			headers: {

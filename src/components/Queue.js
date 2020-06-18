@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import QueueItem from './QueueItem';
 import { IconContext } from 'react-icons';
 import { FiRefreshCw } from 'react-icons/fi';
+import { apiUrl } from './../config';
 import './Queue.css';
 
 export default class Queue extends Component {
@@ -28,7 +29,7 @@ export default class Queue extends Component {
 		if (!this.state.isPlaying && this.state.isHost) {
 			this.setState({ isPlaying: true }, () => this.props.playSong(song));
 		} else {
-			fetch(`http://localhost:3500/queue_song?party_code=${this.state.party}`, {
+			fetch(`${apiUrl}queue_song?party_code=${this.state.party}`, {
 				method: 'PUT',
 				body: JSON.stringify(song),
 				headers: {
@@ -57,7 +58,7 @@ export default class Queue extends Component {
 			var upNext = queue.shift();
 			console.log(upNext);
 
-			fetch(`http://localhost:3500/dequeue_song?party_code=${this.state.party}`, {
+			fetch(`${apiUrl}dequeue_song?party_code=${this.state.party}`, {
 				method: 'PUT'
 			})
 				.catch((error) => {
@@ -71,7 +72,7 @@ export default class Queue extends Component {
 	}
 
 	GetQueue(dequeue) {
-		fetch(`http://localhost:3500/queue?party_code=${this.state.party}`)
+		fetch(`${apiUrl}queue?party_code=${this.state.party}`)
 			.catch((error) => {
 				console.error('Error:', error);
 			})
@@ -86,7 +87,7 @@ export default class Queue extends Component {
 	}
 
 	GetCurrentlyPlaying() {
-		fetch(`http://localhost:3500/currently_playing?party_code=${this.state.party}`)
+		fetch(`${apiUrl}currently_playing?party_code=${this.state.party}`)
 			.catch((error) => {
 				console.error('Error:', error);
 			})
@@ -106,7 +107,7 @@ export default class Queue extends Component {
 			}
 		}
 
-		fetch(`http://localhost:3500/vote?party_code=${this.state.party}&member_id=${this.state.memberId}`, {
+		fetch(`${apiUrl}vote?party_code=${this.state.party}&member_id=${this.state.memberId}`, {
 			method: 'PUT',
 			body: JSON.stringify({ uri: song.uri }),
 			headers: {

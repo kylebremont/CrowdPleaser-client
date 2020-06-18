@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { apiUrl } from './../config';
 import './JoinOrCreate.css';
 
 export default class Search extends Component {
@@ -6,7 +7,7 @@ export default class Search extends Component {
 		super(props);
 
 		this.state = {
-			url: 'http://localhost:3500/',
+			url: apiUrl,
 			access_token: props.access_token,
 			searchValue: null,
 			errorMessage: false

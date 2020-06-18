@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Line } from 'rc-progress';
 import './Playback.css';
+import { apiUrl } from './../config';
 
 export default class GuestPlayback extends Component {
 	constructor(props) {
@@ -57,7 +58,7 @@ export default class GuestPlayback extends Component {
 	}
 
 	GetCurrentlyPlaying() {
-		fetch(`http://localhost:3500/currently_playing?party_code=${this.state.party}`).then((res) => res.json()).then(
+		fetch(`${apiUrl}currently_playing?party_code=${this.state.party}`).then((res) => res.json()).then(
 			(res) => {
 				this.setState({ song: res });
 			},
