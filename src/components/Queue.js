@@ -132,18 +132,20 @@ export default class Queue extends Component {
 		return (
 			<div>
 				<div className="Queue">
-					<div onClick={() => this.GetQueue(false)}>
-						<IconContext.Provider value={{ color: 'black', className: 'refresh-button' }}>
-							<FiRefreshCw size={40} />
-						</IconContext.Provider>
+					<div className="upper-row">
+						<div onClick={() => this.GetQueue(false)}>
+							<IconContext.Provider value={{ color: 'black', className: 'refresh-button' }}>
+								<FiRefreshCw size={40} />
+							</IconContext.Provider>
 						Refresh
 					</div>
 
-					{this.state.queue.length === 0 && (
-						<div className="queue-warning">Search for songs to add to queue.</div>
-					)}
+						{this.state.queue.length === 0 && (
+							<div className="queue-warning">Search for songs to add to queue.</div>
+						)}
 
-					<div id="queue-scrollbox">
+					</div>
+					<div className="scrollable">
 						{this.state.queue !== undefined &&
 							this.state.queue.map((song, i) => {
 								return (

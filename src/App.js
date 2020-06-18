@@ -10,7 +10,7 @@ import JoinOrCreate from './components/JoinOrCreate';
 import Playlists from './components/Playlists';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import 'react-tabs/style/react-tabs.css';
+import './styles/tabs.css';
 
 class App extends Component {
 	constructor() {
@@ -98,7 +98,7 @@ class App extends Component {
 						<div className="App-content">
 							party code: <div style={{ fontWeight: 'bold' }}>{this.state.party}</div>
 							<Tabs forceRenderTabPanel={true}>
-								<TabList style={{ color: 'black' }}>
+								<TabList >
 									<Tab>up next</Tab>
 									<Tab>search</Tab>
 									<Tab>playlists</Tab>

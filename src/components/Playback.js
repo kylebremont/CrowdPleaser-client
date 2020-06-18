@@ -234,7 +234,7 @@ export default class Playback extends Component {
 							<Line
 								percent={this.state.progress / this.state.song.duration * 100}
 								strokeWidth="0.5"
-								strokeColor="green"
+								strokeColor="#E397E3"
 							/>
 						</div>
 					)}

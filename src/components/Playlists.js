@@ -87,15 +87,17 @@ export default class Playlists extends Component {
 	render() {
 		return (
 			<div id="playlists">
-				{this.state.display_tracks === true && (
-					<div onClick={() => this.setState({ display_tracks: false })}>
-						<IconContext.Provider value={{ color: 'black', className: 'back-button' }}>
-							<IoIosArrowBack size={40} onClick={() => this.setState({ display_tracks: false })} />
-						</IconContext.Provider>
+				<div className="upper-row">
+					{this.state.display_tracks === true && (
+						<div onClick={() => this.setState({ display_tracks: false })}>
+							<IconContext.Provider value={{ color: 'black', className: 'back-button' }}>
+								<IoIosArrowBack size={40} onClick={() => this.setState({ display_tracks: false })} />
+							</IconContext.Provider>
 						Go Back
-					</div>
-				)}
-				<div id="playlists-scrollbox">
+						</div>
+					)}
+				</div>
+				<div className="scrollable">
 					{this.state.playlists.length !== 0 &&
 						this.state.display_tracks === false &&
 						this.state.playlists.map((playlist, i) => {
@@ -107,6 +109,7 @@ export default class Playlists extends Component {
 							return <SearchResult key={i} data={song} getSongUri={this.getSongUri} />;
 						})}
 				</div>
+
 			</div>
 		);
 	}

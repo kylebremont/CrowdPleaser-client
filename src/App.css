@@ -1,42 +1,28 @@
 .App {
 	text-align: center;
 	min-height: 100vh;
-	background: #f6f6f6;
+	background: rgb(32, 32, 32);
+	/* background: #E397E3; */
 }
 
 .App-head {
 	color: black;
 	font-weight: bold;
 	font-family: Rubik;
-	padding: 5vh;
 	background-image: linear-gradient(to bottom right, rgb(171, 206, 235), rgb(228, 150, 228));
-	width: 60vw;
+	width: 60%;
 	margin: auto;
-	height: 125px;
+	height: auto;
 }
 
 .App-content {
 	text-align: center;
-	min-height: 100vh;
+	min-height: 100%;
 	margin: auto;
-	width: 60vw;
-	background: white;
-	color: black;
+	width: 60%;
+	background: rgb(48, 48, 48);
+	color: white;
 	font-family: Rubik;
-}
-
-.App-logo {
-	animation: App-logo-spin infinite 20s linear;
-	pointer-events: none;
-}
-
-@keyframes App-logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
 }
 
 * {
@@ -147,4 +133,21 @@ body {
 
 h1 {
 	text-shadow: 2px 2px #080808;
+}
+
+.upper-row {
+	height: 5vh;
+	background: rgb(48, 48, 48);
+}
+
+.scrollable {
+	height: 55vh;
+	overflow: scroll;
+	background: rgb(48, 48, 48);
+}
+
+#song-title {
+	float: left;
+	font-size: 20px;
+	color: grey;
 }

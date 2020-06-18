@@ -64,24 +64,27 @@ export default class Search extends Component {
 
 	render() {
 		return (
-			<div id="search">
-				<form onSubmit={this.handleEnter}>
-					<div className="searchbox">
-						<input
-							type="text"
-							name="song"
-							placeholder="enter a song or artist"
-							onChange={this.handleChange}
-							style={{ borderRadius: '3px' }}
-						/>
-					</div>
-				</form>
-				<div id="search-scrollbox">
+			<div id="container">
+				<div className="upper-row">
+					<form onSubmit={this.handleEnter}>
+						<div className="searchbox">
+							<input
+								type="text"
+								name="song"
+								placeholder="enter a song or artist"
+								onChange={this.handleChange}
+								style={{ borderRadius: '3px' }}
+							/>
+						</div>
+					</form>
+				</div>
+				<div className="scrollable">
 					{this.state.songs !== undefined &&
 						this.state.songs.map((song, i) => {
 							return <SearchResult key={i} data={song} getSongUri={this.getSongUri} />;
 						})}
 				</div>
+
 			</div>
 		);
 	}
