@@ -74,12 +74,12 @@ export default class Search extends Component {
 				<input onChange={(e) => this.setState({ searchValue: e.target.value })} />
 				<br />
 				<br />
-				<a id="join" onClick={this.joinParty}>
-					Join party
+				<a className="button" style={{ cursor: 'pointer' }} onClick={this.joinParty}>
+					join party
 				</a>
 				<br />
 				<br />
-				{this.state.errorMessage && <div id="error">Invalid party code</div>}
+				{this.state.errorMessage && <div id="error">invalid party code</div>}
 				<br />
 				<br />
 				<br />
@@ -87,7 +87,7 @@ export default class Search extends Component {
 				<br />
 				<br />
 				or{' '}
-				<a id="create" onClick={this.createParty}>
+				<a id="create" style={{ cursor: 'pointer' }} onClick={this.createParty}>
 					create your own party
 				</a>
 			</div>

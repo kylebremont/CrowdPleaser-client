@@ -206,7 +206,7 @@ export default class Playback extends Component {
 								<div className="col" id="playpausebutton">
 									{/* this.setState({ isPlaying: !this.state.isPlaying }, () => this.playTrack()) */}
 
-									<IconContext.Provider value={{ color: 'black', className: 'playpause-button' }}>
+									<IconContext.Provider value={{ color: "white", className: 'playpause-button' }}>
 										{this.state.isPlaying ? (
 											<BsFillPauseFill
 												size={60}
@@ -226,7 +226,7 @@ export default class Playback extends Component {
 											)}
 									</IconContext.Provider>
 
-									<IconContext.Provider value={{ color: 'black', className: 'skip-button' }}>
+									<IconContext.Provider value={{ color: "white", className: 'skip-button' }}>
 										<BsFillSkipEndFill size={60} onClick={() => this.getNextSong(true)} />
 									</IconContext.Provider>
 								</div>

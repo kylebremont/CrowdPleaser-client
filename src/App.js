@@ -78,12 +78,12 @@ class App extends Component {
 							<br />
 							<br />
 							<a
-								id="login"
+								className="button"
 								href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
 									'%20'
 								)}&response_type=token&show_dialog=true`}
 							>
-								Login to Spotify
+								login to spotify
 						</a>
 						</div>
 					)}

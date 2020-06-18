@@ -134,10 +134,10 @@ export default class Queue extends Component {
 				<div className="Queue">
 					<div className="upper-row">
 						<div onClick={() => this.GetQueue(false)}>
-							<IconContext.Provider value={{ color: 'black', className: 'refresh-button' }}>
-								<FiRefreshCw size={40} />
+							<IconContext.Provider value={{ color: 'white', className: 'refresh-button' }}>
+								<FiRefreshCw size={30} />
 							</IconContext.Provider>
-						Refresh
+						&nbsp;refresh
 					</div>
 
 						{this.state.queue.length === 0 && (

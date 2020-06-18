@@ -90,10 +90,10 @@ export default class Playlists extends Component {
 				<div className="upper-row">
 					{this.state.display_tracks === true && (
 						<div onClick={() => this.setState({ display_tracks: false })}>
-							<IconContext.Provider value={{ color: 'black', className: 'back-button' }}>
+							<IconContext.Provider value={{ color: 'white', className: 'back-button' }}>
 								<IoIosArrowBack size={40} onClick={() => this.setState({ display_tracks: false })} />
 							</IconContext.Provider>
-						Go Back
+						go back
 						</div>
 					)}
 				</div>
