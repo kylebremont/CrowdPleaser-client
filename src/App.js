@@ -20,7 +20,8 @@ class App extends Component {
 			loggedIn: false,
 			songInfo: null,
 			party: null,
-			isHost: false
+			isHost: false,
+			memberId: null
 		};
 
 		this.queueElement = React.createRef();
@@ -46,8 +47,8 @@ class App extends Component {
 		}
 	}
 
-	setParty(party_id, isHost) {
-		this.setState({ party: party_id, isHost });
+	setParty(party_id, isHost, memberId) {
+		this.setState({ party: party_id, isHost, memberId });
 	}
 
 	addToQueue(songInfo) {
@@ -109,6 +110,7 @@ class App extends Component {
 									playSong={this.playSong}
 									party={this.state.party}
 									isHost={this.state.isHost}
+									memberId={this.state.memberId}
 								/>
 							</TabPanel>
 							<TabPanel>

@@ -13,7 +13,8 @@ export default class Queue extends Component {
 			queue: [],
 			isPlaying: false,
 			party: props.party,
-			isHost: props.isHost
+			isHost: props.isHost,
+			memberId: props.memberId
 		};
 		this.enqueue = this.enqueue.bind(this);
 		this.dequeue = this.dequeue.bind(this);
@@ -105,7 +106,7 @@ export default class Queue extends Component {
 			}
 		}
 
-		fetch(`http://localhost:3500/vote?party_code=${this.state.party}`, {
+		fetch(`http://localhost:3500/vote?party_code=${this.state.party}&member_id=${this.state.memberId}`, {
 			method: 'PUT',
 			body: JSON.stringify({ uri: song.uri }),
 			headers: {

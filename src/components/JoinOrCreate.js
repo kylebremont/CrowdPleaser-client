@@ -17,7 +17,6 @@ export default class Search extends Component {
 
 	createParty() {
 		var data = {};
-		var host = true;
 		data['access_token'] = this.state.access_token;
 
 		var endpoint = 'create_party';
@@ -34,12 +33,11 @@ export default class Search extends Component {
 			})
 			.then((response) => response.json())
 			.then((response) => {
-				this.props.setParty(response[0], host);
+				this.props.setParty(response.party_id, true, response.member_id);
 			});
 	}
 
 	joinParty() {
-		var host = false;
 		var endpoint = 'join_party';
 		var query = '?party_code=' + this.state.searchValue;
 		fetch(this.state.url + endpoint + query, {
@@ -52,9 +50,10 @@ export default class Search extends Component {
 			.catch((error) => {
 				console.error('Error:', error);
 			})
+			.then((response) => response.json())
 			.then((response) => {
-				if (response.status === 200) {
-					this.props.setParty(this.state.searchValue, host);
+				if (response.statusCode === 200) {
+					this.props.setParty(this.state.searchValue, false, response.member_id);
 				} else {
 					this.setState({ errorMessage: true });
 				}

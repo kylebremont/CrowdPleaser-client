@@ -11,7 +11,8 @@ export default class SearchResult extends Component {
 			uri: props.data.uri,
 			image: props.data.image,
 			duration: props.data.duration,
-			votes: 0
+			votes: 0,
+			voted: []
 		};
 	}
 
