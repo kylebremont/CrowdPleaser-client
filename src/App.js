@@ -66,77 +66,77 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<div className="app-head">crowdpleaser</div>
+				<div className="App-head">crowdpleaser</div>
 				{!this.state.loggedIn &&
-				!this.state.party && (
-					<div>
-						<br />
-						<br />
-						<br />
-						<br />
-						<br />
-						<br />
-						<br />
-						<a
-							id="login"
-							href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-								'%20'
-							)}&response_type=token&show_dialog=true`}
-						>
-							Login to Spotify
+					!this.state.party && (
+						<div>
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<br />
+							<a
+								id="login"
+								href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+									'%20'
+								)}&response_type=token&show_dialog=true`}
+							>
+								Login to Spotify
 						</a>
-					</div>
-				)}
+						</div>
+					)}
 				{this.state.loggedIn &&
-				!this.state.party && (
-					<div className="Appcontent">
-						<JoinOrCreate access_token={this.state.token} setParty={this.setParty} />
-					</div>
-				)}
+					!this.state.party && (
+						<div className="App-content">
+							<JoinOrCreate access_token={this.state.token} setParty={this.setParty} />
+						</div>
+					)}
 				{this.state.loggedIn &&
-				this.state.party && (
-					<div className="Appcontent">
-						party code: <div style={{ fontWeight: 'bold' }}>{this.state.party}</div>
-						<Tabs forceRenderTabPanel={true}>
-							<TabList style={{ color: 'black' }}>
-								<Tab>up next</Tab>
-								<Tab>search</Tab>
-								<Tab>playlists</Tab>
-							</TabList>
+					this.state.party && (
+						<div className="App-content">
+							party code: <div style={{ fontWeight: 'bold' }}>{this.state.party}</div>
+							<Tabs forceRenderTabPanel={true}>
+								<TabList style={{ color: 'black' }}>
+									<Tab>up next</Tab>
+									<Tab>search</Tab>
+									<Tab>playlists</Tab>
+								</TabList>
 
-							<TabPanel>
-								<Queue
-									ref={this.queueElement}
-									playSong={this.playSong}
+								<TabPanel>
+									<Queue
+										ref={this.queueElement}
+										playSong={this.playSong}
+										party={this.state.party}
+										isHost={this.state.isHost}
+										memberId={this.state.memberId}
+									/>
+								</TabPanel>
+								<TabPanel>
+									<Search access_code={this.state.token} addToQueue={this.addToQueue} />
+								</TabPanel>
+								<TabPanel>
+									<Playlists access_token={this.state.token} addToQueue={this.addToQueue} />
+								</TabPanel>
+							</Tabs>
+							{this.state.isHost && (
+								<Playback
+									ref={this.playbackElement}
+									access_code={this.state.token}
+									requestSong={this.requestSong}
 									party={this.state.party}
-									isHost={this.state.isHost}
-									memberId={this.state.memberId}
 								/>
-							</TabPanel>
-							<TabPanel>
-								<Search access_code={this.state.token} addToQueue={this.addToQueue} />
-							</TabPanel>
-							<TabPanel>
-								<Playlists access_token={this.state.token} addToQueue={this.addToQueue} />
-							</TabPanel>
-						</Tabs>
-						{this.state.isHost && (
-							<Playback
-								ref={this.playbackElement}
-								access_code={this.state.token}
-								requestSong={this.requestSong}
-								party={this.state.party}
-							/>
-						)}
-						{!this.state.isHost && (
-							<GuestPlayback
-								ref={this.playbackElement}
-								requestSong={this.requestSong}
-								party={this.state.party}
-							/>
-						)}
-					</div>
-				)}
+							)}
+							{!this.state.isHost && (
+								<GuestPlayback
+									ref={this.playbackElement}
+									requestSong={this.requestSong}
+									party={this.state.party}
+								/>
+							)}
+						</div>
+					)}
 			</div>
 		);
 	}

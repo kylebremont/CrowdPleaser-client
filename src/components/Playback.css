@@ -1,25 +1,13 @@
-.playback-footer {
+.footer {
 	background: rgba(36, 36, 36, 0.705);
 	bottom: 0;
 	overflow: hidden;
 	position: fixed;
 	width: 60%;
-	height: 200px;
-}
-/** Now Playing **/
-.playback-col img {
-	height: 100%;
+	height: auto;
 }
 
-.content-row {
-}
-
-.progress-row {
-	width: 100%;
-}
-
-.playback-col {
-	float: left;
-	width: 33%;
-	height: 150px;
+#playback-thumbnail {
+	width: 35%;
+	height: auto;
 }

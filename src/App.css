@@ -4,17 +4,7 @@
 	background: #f6f6f6;
 }
 
-.Appcontent {
-	text-align: center;
-	min-height: 100vh;
-	margin: auto;
-	width: 60vw;
-	background: white;
-	color: black;
-	font-family: Rubik;
-}
-
-.app-head {
+.App-head {
 	color: black;
 	font-weight: bold;
 	font-family: Rubik;
@@ -23,6 +13,16 @@
 	width: 60vw;
 	margin: auto;
 	height: 125px;
+}
+
+.App-content {
+	text-align: center;
+	min-height: 100vh;
+	margin: auto;
+	width: 60vw;
+	background: white;
+	color: black;
+	font-family: Rubik;
 }
 
 .App-logo {
