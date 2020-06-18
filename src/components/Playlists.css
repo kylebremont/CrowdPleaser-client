@@ -1,0 +1,11 @@
+#playlists {
+	background-color: white;
+	align-self: center;
+	height: 49vh;
+}
+
+#playlists-scrollbox {
+	width: 100%;
+	height: 75%;
+	overflow: scroll;
+}

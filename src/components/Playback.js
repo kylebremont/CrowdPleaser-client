@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BsFillSkipEndFill, BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import { Line } from 'rc-progress';
+import { apiUrl } from './../config';
 import './Playback.css';
 
 export default class Playback extends Component {
@@ -9,6 +10,7 @@ export default class Playback extends Component {
 		super(props);
 
 		this.state = {
+			party: props.party,
 			token: props.access_code,
 			player: null,
 			song: {
@@ -125,7 +127,21 @@ export default class Playback extends Component {
 	}
 
 	setSong(song) {
-		this.setState({ song }, () => this.playTrack());
+		fetch(`${apiUrl}change_playing?party_code=${this.state.party}`, {
+			method: 'PUT',
+			body: JSON.stringify(song),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+			.catch((error) => {
+				console.error('Error:', error);
+			})
+			.then((response) => response.json())
+			.then((response) => {
+				this.setState({ song: response }, () => this.playTrack());
+			});
+		// this.setState({ song }, () => this.playTrack());
 	}
 
 	connectToSpotify() {
