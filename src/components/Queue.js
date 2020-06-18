@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import QueueItem from './QueueItem';
+import { IconContext } from 'react-icons';
+import { FiRefreshCw } from 'react-icons/fi';
 import './Queue.css';
 
 export default class Queue extends Component {
@@ -17,6 +19,7 @@ export default class Queue extends Component {
 		this.dequeue = this.dequeue.bind(this);
 		this.GetQueue = this.GetQueue.bind(this);
 		this.GetCurrentlyPlaying = this.GetCurrentlyPlaying.bind(this);
+		this.HandleVote = this.HandleVote.bind(this);
 	}
 
 	enqueue(song) {
@@ -66,14 +69,18 @@ export default class Queue extends Component {
 		}
 	}
 
-	GetQueue() {
+	GetQueue(dequeue) {
 		fetch(`http://localhost:3500/queue?party_code=${this.state.party}`)
 			.catch((error) => {
 				console.error('Error:', error);
 			})
 			.then((response) => response.json())
 			.then((response) => {
-				this.setState({ queue: response });
+				if (dequeue) {
+					this.setState({ queue: response }, () => this.dequeue());
+				} else {
+					this.setState({ queue: response });
+				}
 			});
 	}
 
@@ -90,8 +97,32 @@ export default class Queue extends Component {
 			});
 	}
 
+	HandleVote(uri) {
+		var song = null;
+		for (let i = 0; i < this.state.queue.length; i++) {
+			if (uri === this.state.queue[i].uri) {
+				song = this.state.queue[i];
+			}
+		}
+
+		fetch(`http://localhost:3500/vote?party_code=${this.state.party}`, {
+			method: 'PUT',
+			body: JSON.stringify({ uri: song.uri }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		})
+			.catch((error) => {
+				console.error('Error:', error);
+			})
+			.then((response) => response.json())
+			.then((response) => {
+				this.setState({ queue: response });
+			});
+	}
+
 	componentDidMount() {
-		this.GetQueue();
+		this.GetQueue(false);
 		this.GetCurrentlyPlaying();
 	}
 
@@ -99,6 +130,13 @@ export default class Queue extends Component {
 		return (
 			<div>
 				<div className="Queue">
+					<div onClick={() => this.GetQueue(false)}>
+						<IconContext.Provider value={{ color: 'black', className: 'refresh-button' }}>
+							<FiRefreshCw size={40} />
+						</IconContext.Provider>
+						Refresh
+					</div>
+
 					{this.state.queue.length === 0 && (
 						<div className="queue-warning">Search for songs to add to queue.</div>
 					)}
@@ -106,16 +144,31 @@ export default class Queue extends Component {
 					<div id="queue-scrollbox">
 						{this.state.queue !== undefined &&
 							this.state.queue.map((song, i) => {
-								// console.log('IN QUEUE');
-								// console.log(song);
 								return (
-									<QueueItem
+									<div
+										style={{ cursor: 'pointer' }}
+										onClick={() => {
+											this.HandleVote(song.uri);
+										}}
 										key={i}
-										rank={i + 1}
-										data={song}
-										party={this.state.party}
-										getSongUri={this.getSongUri}
-									/>
+									>
+										<div id="row">
+											<div id="rank-column">
+												<div id="song-rank">{song.rank}</div>
+											</div>
+											<div id="art-column">
+												<img src={song.image} alt="album cover" className="imgz" />
+											</div>
+											<div id="info-column">
+												<div id="song-title">{song.name}</div>
+												<br />
+												<div id="song-artist">{song.artist}</div>
+											</div>
+											<div id="vote-column">
+												<div id="votes">votes: {song.votes}</div>
+											</div>
+										</div>
+									</div>
 								);
 							})}
 					</div>

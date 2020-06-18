@@ -55,7 +55,7 @@ class App extends Component {
 	}
 
 	requestSong() {
-		this.queueElement.current.dequeue();
+		this.queueElement.current.GetQueue(true);
 	}
 
 	playSong(song) {
