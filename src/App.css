@@ -112,7 +112,13 @@ body {
 
 .button:hover {
 	color: rgb(48, 48, 48);
-  }
+	text-decoration: underline;
+}
+
+.a:hover {
+	color: rgb(48, 48, 48);
+	text-decoration: underline;
+}
 
 h1 {
 	text-shadow: 2px 2px #080808;

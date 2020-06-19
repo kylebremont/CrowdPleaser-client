@@ -63,34 +63,23 @@ export default class Search extends Component {
 
 	render() {
 		return (
-			<div className="JoinOrCreate">
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<input onChange={(e) => this.setState({ searchValue: e.target.value })} />
-				<br />
-				<br />
-				<a className="button" style={{ cursor: 'pointer' }} onClick={this.joinParty}>
-					join party
-				</a>
-				<br />
-				<br />
-				{this.state.errorMessage && <div id="error">invalid party code</div>}
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				or{' '}
-				<a id="create" style={{ cursor: 'pointer' }} onClick={this.createParty}>
-					create your own party
-				</a>
-			</div>
+			<div id="JoinOrCreate">
+				<div id="join">
+					<div id="inputBox">
+						<input onChange={(e) => this.setState({ searchValue: e.target.value })} />
+					</div>
+					<a className="button" style={{ cursor: 'pointer' }} onClick={this.joinParty}>
+						join party
+					</a>
+					{this.state.errorMessage && <div id="error">invalid party code</div>}
+				</div>
+				<div id="create">
+					or{' '}
+					<div style={{ cursor: 'pointer', fontWeight: 'bold', display: 'inline' }} onClick={this.createParty}>
+						create your own party
+					</div>
+				</div>
+			</div >
 		);
 	}
 }

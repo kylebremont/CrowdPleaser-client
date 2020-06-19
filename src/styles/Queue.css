@@ -47,4 +47,6 @@
 .queue-warning {
 	font-size: 16px;
 	background-color: rgba(0, 0, 0, 0);
+	height: 20vh;
+	transform: translateY(100%);
 }

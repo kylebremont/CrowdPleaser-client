@@ -141,7 +141,7 @@ export default class Queue extends Component {
 						</div>
 
 						{this.state.queue.length === 0 && (
-							<div className="queue-warning">Search for songs to add to queue.</div>
+							<div className="queue-warning">search for songs to add to queue.</div>
 						)}
 					</div>
 					<div className="scrollable">
