@@ -1,4 +1,16 @@
 #login-buttons {
-	transform: translateY(40%);
+	/* transform: translateY(40%); */
 	height: 100vh;
+}
+
+#spotify-button {
+	height: 40vh;
+	transform: translateY(100%);
+}
+
+#guest-button {
+	height: 20vh;
+	transform: translateY(100%);
+	color: white;
+	cursor: pointer;
 }

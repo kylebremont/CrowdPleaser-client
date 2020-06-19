@@ -22,6 +22,7 @@ class App extends Component {
 			songInfo: null,
 			party: null,
 			isHost: false,
+			isGuest: false,
 			memberId: null
 		};
 
@@ -34,6 +35,7 @@ class App extends Component {
 		this.requestSong = this.requestSong.bind(this);
 
 		this.setParty = this.setParty.bind(this);
+		this.guestLogin = this.guestLogin.bind(this);
 	}
 
 	componentDidMount() {
@@ -64,6 +66,10 @@ class App extends Component {
 		this.playbackElement.current.setSong(song);
 	}
 
+	guestLogin() {
+		this.setState({ loggedIn: true, isGuest: true });
+	}
+
 	render() {
 		return (
 			<div className="App">
@@ -75,7 +81,11 @@ class App extends Component {
 				{this.state.loggedIn &&
 				!this.state.party && (
 					<div className="App-content">
-						<JoinOrCreate access_token={this.state.token} setParty={this.setParty} />
+						<JoinOrCreate
+							access_token={this.state.token}
+							isGuest={this.state.isGuest}
+							setParty={this.setParty}
+						/>
 					</div>
 				)}
 
@@ -104,7 +114,11 @@ class App extends Component {
 								<Search access_code={this.state.token} addToQueue={this.addToQueue} />
 							</TabPanel>
 							<TabPanel>
-								<Playlists access_token={this.state.token} addToQueue={this.addToQueue} />
+								<Playlists
+									access_token={this.state.token}
+									isGuest={this.state.isGuest}
+									addToQueue={this.addToQueue}
+								/>
 							</TabPanel>
 						</Tabs>
 						{this.state.isHost && (
