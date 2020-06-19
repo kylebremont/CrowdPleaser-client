@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { apiUrl } from './../config';
 import '../styles/JoinOrCreate.css';
 
-export default class Search extends Component {
+export default class JoinOrCreate extends Component {
 	constructor(props) {
 		super(props);
 
@@ -71,9 +71,17 @@ export default class Search extends Component {
 					{!this.state.isGuest && (
 						<div id="create">
 							or{' '}
-							<div style={{ cursor: 'pointer', fontWeight: 'bold', display: 'inline', textDecoration: 'underline' }} onClick={this.createParty}>
+							<div
+								style={{
+									cursor: 'pointer',
+									fontWeight: 'bold',
+									display: 'inline',
+									textDecoration: 'underline'
+								}}
+								onClick={this.createParty}
+							>
 								click here to create your own party
-						</div>
+							</div>
 						</div>
 					)}
 				</div>
@@ -86,7 +94,7 @@ export default class Search extends Component {
 					</a>
 					{this.state.errorMessage && <div id="error">invalid party code</div>}
 				</div>
-			</div >
+			</div>
 		);
 	}
 }
