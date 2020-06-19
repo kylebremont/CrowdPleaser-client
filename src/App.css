@@ -1,16 +1,14 @@
 .App {
 	text-align: center;
 	min-height: 100vh;
-	background: rgb(32, 32, 32);
-	/* background: #E397E3; */
+	background: rgb(48, 48, 48);
+	font-family: Rubik;
 }
 
 .App-head {
 	color: black;
 	font-weight: bold;
-	font-family: Rubik;
 	background-image: linear-gradient(to bottom right, rgb(171, 206, 235), rgb(228, 150, 228));
-	width: 60%;
 	margin: auto;
 	height: auto;
 }
@@ -19,7 +17,6 @@
 	text-align: center;
 	min-height: 100%;
 	margin: auto;
-	width: 60%;
 	background: rgb(48, 48, 48);
 	color: white;
 	font-family: Rubik;

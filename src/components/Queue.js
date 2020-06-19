@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import QueueItem from './QueueItem';
 import { IconContext } from 'react-icons';
 import { FiRefreshCw } from 'react-icons/fi';
 import { apiUrl } from './../config';
@@ -155,22 +154,24 @@ export default class Queue extends Component {
 										}}
 										key={i}
 									>
-										<div id="row">
-											<div id="rank-column">
-												<div id="song-rank">{song.rank}</div>
-											</div>
-											<div id="art-column">
+										<div className="row">
+											<div className="col-4 text-right">
 												<img src={song.image} alt="album cover" className="imgz" />
 											</div>
-											<div id="info-column">
-												<div id="song-title">{song.name}</div>
-												<br />
-												<div id="song-artist">{song.artist}</div>
+											<div className="col-4">
+												<div className="row">
+													<div className="song-title">{song.name}</div>
+												</div>
+												<div className="row">
+													<div className="song-artist">{song.artist}</div>
+												</div>
 											</div>
-											<div id="vote-column">
+											<div className="col-4">
 												<div id="votes">votes: {song.votes}</div>
 											</div>
 										</div>
+
+
 									</div>
 								);
 							})}

@@ -1,11 +1,13 @@
+#header {
+	height: 5vh;
+	transform: translateY(100%);
+}
 #join {
-	height: 40vh;
+	height: 30vh;
 	transform: translateY(100%);
 }
 
 #create {
-	height: 50vh;
-	transform: translateY(100%);
 	color: white;
 }
 
@@ -15,7 +17,6 @@
 }
 
 #JoinOrCreate {
-	color: black;
 	height: 100vh;
 }
 

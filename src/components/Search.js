@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Spotify from 'node-spotify-api';
 import { clientId, secret } from '../config';
-import SearchResult from './SearchResult';
-import '../styles/Search.css';
+import Song from './Song';
+import '../styles/Song.css';
 
 export default class Search extends Component {
 	constructor(props) {
@@ -81,7 +81,7 @@ export default class Search extends Component {
 				<div className="scrollable">
 					{this.state.songs !== undefined &&
 						this.state.songs.map((song, i) => {
-							return <SearchResult key={i} data={song} getSongUri={this.getSongUri} />;
+							return <Song key={i} data={song} getSongUri={this.getSongUri} />;
 						})}
 				</div>
 			</div>

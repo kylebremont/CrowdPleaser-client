@@ -9,6 +9,7 @@ export default class Search extends Component {
 		this.state = {
 			url: apiUrl,
 			access_token: props.access_token,
+			isGuest: props.isGuest,
 			searchValue: null,
 			errorMessage: false
 		};
@@ -64,20 +65,26 @@ export default class Search extends Component {
 	render() {
 		return (
 			<div id="JoinOrCreate">
+				<div id="header">
+					welcome to crowdpleaser! <br />
+					if you have a party code enter it below
+					{!this.state.isGuest && (
+						<div id="create">
+							or{' '}
+							<div style={{ cursor: 'pointer', fontWeight: 'bold', display: 'inline', textDecoration: 'underline' }} onClick={this.createParty}>
+								click here to create your own party
+						</div>
+						</div>
+					)}
+				</div>
 				<div id="join">
 					<div id="inputBox">
 						<input onChange={(e) => this.setState({ searchValue: e.target.value })} />
 					</div>
-					<a className="button" style={{ cursor: 'pointer' }} onClick={this.joinParty}>
+					<a className="button" style={{ cursor: 'pointer', color: 'black' }} onClick={this.joinParty}>
 						join party
 					</a>
 					{this.state.errorMessage && <div id="error">invalid party code</div>}
-				</div>
-				<div id="create">
-					or{' '}
-					<div style={{ cursor: 'pointer', fontWeight: 'bold', display: 'inline' }} onClick={this.createParty}>
-						create your own party
-					</div>
 				</div>
 			</div >
 		);

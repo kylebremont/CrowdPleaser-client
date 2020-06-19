@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PlaylistItem from './PlaylistItem';
-import SearchResult from './SearchResult';
+import Song from './Song';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IconContext } from 'react-icons';
 import '../styles/Playlists.css';
@@ -11,6 +11,7 @@ export default class Playlists extends Component {
 
 		this.state = {
 			access_token: props.access_token,
+			isGuest: props.isGuest,
 			playlists: [],
 			tracks: [],
 			display_tracks: false
@@ -81,34 +82,44 @@ export default class Playlists extends Component {
 	}
 
 	componentDidMount() {
-		this.GetPlaylists();
+		if (!this.state.isGuest) {
+			this.GetPlaylists();
+		}
 	}
 
 	render() {
 		return (
-			<div id="playlists">
-				<div className="upper-row">
-					{this.state.display_tracks === true && (
-						<div onClick={() => this.setState({ display_tracks: false })}>
-							<IconContext.Provider value={{ color: 'white', className: 'back-button' }}>
-								<IoIosArrowBack size={40} onClick={() => this.setState({ display_tracks: false })} />
-							</IconContext.Provider>
-							go back
+			<div>
+				{!this.state.isGuest && (
+					<div id="playlists">
+						<div className="upper-row">
+							{this.state.display_tracks === true && (
+								<div onClick={() => this.setState({ display_tracks: false })}>
+									<IconContext.Provider value={{ color: 'white', className: 'back-button' }}>
+										<IoIosArrowBack
+											size={40}
+											onClick={() => this.setState({ display_tracks: false })}
+										/>
+									</IconContext.Provider>
+									go back
+								</div>
+							)}
 						</div>
-					)}
-				</div>
-				<div className="scrollable">
-					{this.state.playlists.length !== 0 &&
-						this.state.display_tracks === false &&
-						this.state.playlists.map((playlist, i) => {
-							return <PlaylistItem key={i} data={playlist} GetTracks={this.GetTracks} />;
-						})}
+						<div className="scrollable">
+							{this.state.playlists.length !== 0 &&
+								this.state.display_tracks === false &&
+								this.state.playlists.map((playlist, i) => {
+									return <PlaylistItem key={i} data={playlist} GetTracks={this.GetTracks} />;
+								})}
 
-					{this.state.display_tracks === true &&
-						this.state.tracks.map((song, i) => {
-							return <SearchResult key={i} data={song} getSongUri={this.getSongUri} />;
-						})}
-				</div>
+							{this.state.display_tracks === true &&
+								this.state.tracks.map((song, i) => {
+									return <Song key={i} data={song} getSongUri={this.getSongUri} />;
+								})}
+						</div>
+					</div>
+				)}
+				{this.state.isGuest && <div>Not logged in to spotify</div>}
 			</div>
 		);
 	}
