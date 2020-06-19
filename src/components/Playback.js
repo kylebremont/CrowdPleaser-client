@@ -3,7 +3,7 @@ import { BsFillSkipEndFill, BsFillPlayFill, BsFillPauseFill } from 'react-icons/
 import { IconContext } from 'react-icons';
 import { Line } from 'rc-progress';
 import { apiUrl } from './../config';
-import './Playback.css';
+import '../styles/Playback.css';
 
 export default class Playback extends Component {
 	constructor(props) {
@@ -95,7 +95,7 @@ export default class Playback extends Component {
 					this.getNextSong(false);
 				}, this.state.song.duration - this.state.progress);
 				url = `https://api.spotify.com/v1/me/player/play?device_id=${id}`;
-				body = { uris: [spotify_uri] };
+				body = { uris: [ spotify_uri ] };
 				if (this.state.progress > 0) {
 					body['position_ms'] = this.state.progress;
 				}
@@ -103,7 +103,7 @@ export default class Playback extends Component {
 			} else {
 				this.stopTimer();
 				url = `https://api.spotify.com/v1/me/player/pause?device_id=${id}`;
-				body = { uris: [spotify_uri] };
+				body = { uris: [ spotify_uri ] };
 			}
 
 			getOAuthToken((access_token) => {
@@ -206,7 +206,7 @@ export default class Playback extends Component {
 								<div className="col" id="playpausebutton">
 									{/* this.setState({ isPlaying: !this.state.isPlaying }, () => this.playTrack()) */}
 
-									<IconContext.Provider value={{ color: "white", className: 'playpause-button' }}>
+									<IconContext.Provider value={{ color: 'white', className: 'playpause-button' }}>
 										{this.state.isPlaying ? (
 											<BsFillPauseFill
 												size={60}
@@ -216,17 +216,17 @@ export default class Playback extends Component {
 													)}
 											/>
 										) : (
-												<BsFillPlayFill
-													size={60}
-													onClick={() =>
-														this.setState({ isPlaying: !this.state.isPlaying }, () =>
-															this.playTrack()
-														)}
-												/>
-											)}
+											<BsFillPlayFill
+												size={60}
+												onClick={() =>
+													this.setState({ isPlaying: !this.state.isPlaying }, () =>
+														this.playTrack()
+													)}
+											/>
+										)}
 									</IconContext.Provider>
 
-									<IconContext.Provider value={{ color: "white", className: 'skip-button' }}>
+									<IconContext.Provider value={{ color: 'white', className: 'skip-button' }}>
 										<BsFillSkipEndFill size={60} onClick={() => this.getNextSong(true)} />
 									</IconContext.Provider>
 								</div>
@@ -239,7 +239,7 @@ export default class Playback extends Component {
 						</div>
 					)}
 				</footer>
-			</div >
+			</div>
 		);
 	}
 }

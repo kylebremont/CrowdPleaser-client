@@ -3,7 +3,7 @@ import PlaylistItem from './PlaylistItem';
 import SearchResult from './SearchResult';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IconContext } from 'react-icons';
-import './Playlists.css';
+import '../styles/Playlists.css';
 
 export default class Playlists extends Component {
 	constructor(props) {
@@ -93,7 +93,7 @@ export default class Playlists extends Component {
 							<IconContext.Provider value={{ color: 'white', className: 'back-button' }}>
 								<IoIosArrowBack size={40} onClick={() => this.setState({ display_tracks: false })} />
 							</IconContext.Provider>
-						go back
+							go back
 						</div>
 					)}
 				</div>
@@ -109,7 +109,6 @@ export default class Playlists extends Component {
 							return <SearchResult key={i} data={song} getSongUri={this.getSongUri} />;
 						})}
 				</div>
-
 			</div>
 		);
 	}

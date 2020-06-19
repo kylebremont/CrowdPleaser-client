@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Spotify from 'node-spotify-api';
 import { clientId, secret } from '../config';
 import SearchResult from './SearchResult';
-import './Search.css';
+import '../styles/Search.css';
 
 export default class Search extends Component {
 	constructor(props) {
@@ -84,7 +84,6 @@ export default class Search extends Component {
 							return <SearchResult key={i} data={song} getSongUri={this.getSongUri} />;
 						})}
 				</div>
-
 			</div>
 		);
 	}

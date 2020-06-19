@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { apiUrl } from './../config';
-import './JoinOrCreate.css';
+import '../styles/JoinOrCreate.css';
 
 export default class Search extends Component {
 	constructor(props) {

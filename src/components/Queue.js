@@ -3,7 +3,7 @@ import QueueItem from './QueueItem';
 import { IconContext } from 'react-icons';
 import { FiRefreshCw } from 'react-icons/fi';
 import { apiUrl } from './../config';
-import './Queue.css';
+import '../styles/Queue.css';
 
 export default class Queue extends Component {
 	constructor(props) {
@@ -137,13 +137,12 @@ export default class Queue extends Component {
 							<IconContext.Provider value={{ color: 'white', className: 'refresh-button' }}>
 								<FiRefreshCw size={30} />
 							</IconContext.Provider>
-						&nbsp;refresh
-					</div>
+							&nbsp;refresh
+						</div>
 
 						{this.state.queue.length === 0 && (
 							<div className="queue-warning">Search for songs to add to queue.</div>
 						)}
-
 					</div>
 					<div className="scrollable">
 						{this.state.queue !== undefined &&
