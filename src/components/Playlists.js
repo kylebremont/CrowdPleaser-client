@@ -3,7 +3,7 @@ import PlaylistItem from './PlaylistItem';
 import SearchResult from './SearchResult';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IconContext } from 'react-icons';
-import './Playlists.css';
+import '../styles/Playlists.css';
 
 export default class Playlists extends Component {
 	constructor(props) {
@@ -11,6 +11,7 @@ export default class Playlists extends Component {
 
 		this.state = {
 			access_token: props.access_token,
+			isGuest: props.isGuest,
 			playlists: [],
 			tracks: [],
 			display_tracks: false
@@ -81,32 +82,44 @@ export default class Playlists extends Component {
 	}
 
 	componentDidMount() {
-		this.GetPlaylists();
+		if (!this.state.isGuest) {
+			this.GetPlaylists();
+		}
 	}
 
 	render() {
 		return (
-			<div id="playlists">
-				{this.state.display_tracks === true && (
-					<div onClick={() => this.setState({ display_tracks: false })}>
-						<IconContext.Provider value={{ color: 'black', className: 'back-button' }}>
-							<IoIosArrowBack size={40} onClick={() => this.setState({ display_tracks: false })} />
-						</IconContext.Provider>
-						Go Back
+			<div>
+				{!this.state.isGuest && (
+					<div id="playlists">
+						<div className="upper-row">
+							{this.state.display_tracks === true && (
+								<div onClick={() => this.setState({ display_tracks: false })}>
+									<IconContext.Provider value={{ color: 'white', className: 'back-button' }}>
+										<IoIosArrowBack
+											size={40}
+											onClick={() => this.setState({ display_tracks: false })}
+										/>
+									</IconContext.Provider>
+									go back
+								</div>
+							)}
+						</div>
+						<div className="scrollable">
+							{this.state.playlists.length !== 0 &&
+								this.state.display_tracks === false &&
+								this.state.playlists.map((playlist, i) => {
+									return <PlaylistItem key={i} data={playlist} GetTracks={this.GetTracks} />;
+								})}
+
+							{this.state.display_tracks === true &&
+								this.state.tracks.map((song, i) => {
+									return <SearchResult key={i} data={song} getSongUri={this.getSongUri} />;
+								})}
+						</div>
 					</div>
 				)}
-				<div id="playlists-scrollbox">
-					{this.state.playlists.length !== 0 &&
-						this.state.display_tracks === false &&
-						this.state.playlists.map((playlist, i) => {
-							return <PlaylistItem key={i} data={playlist} GetTracks={this.GetTracks} />;
-						})}
-
-					{this.state.display_tracks === true &&
-						this.state.tracks.map((song, i) => {
-							return <SearchResult key={i} data={song} getSongUri={this.getSongUri} />;
-						})}
-				</div>
+				{this.state.isGuest && <div>Not logged in to spotify</div>}
 			</div>
 		);
 	}

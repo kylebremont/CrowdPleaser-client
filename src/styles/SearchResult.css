@@ -19,7 +19,6 @@
 }
 
 #row {
-	background-color: white;
 	height: 15vh;
 }
 
@@ -35,7 +34,7 @@
 #song-title {
 	float: left;
 	font-size: 20px;
-	color: black;
+	color: grey;
 }
 
 #song-artist {

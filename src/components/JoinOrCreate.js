@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { apiUrl } from './../config';
-import './JoinOrCreate.css';
+import '../styles/JoinOrCreate.css';
 
 export default class Search extends Component {
 	constructor(props) {
@@ -9,6 +9,7 @@ export default class Search extends Component {
 		this.state = {
 			url: apiUrl,
 			access_token: props.access_token,
+			isGuest: props.isGuest,
 			searchValue: null,
 			errorMessage: false
 		};
@@ -74,22 +75,26 @@ export default class Search extends Component {
 				<input onChange={(e) => this.setState({ searchValue: e.target.value })} />
 				<br />
 				<br />
-				<a id="join" onClick={this.joinParty}>
-					Join party
+				<a className="button" style={{ cursor: 'pointer' }} onClick={this.joinParty}>
+					join party
 				</a>
 				<br />
 				<br />
-				{this.state.errorMessage && <div id="error">Invalid party code</div>}
+				{this.state.errorMessage && <div id="error">invalid party code</div>}
 				<br />
 				<br />
 				<br />
 				<br />
 				<br />
 				<br />
-				or{' '}
-				<a id="create" onClick={this.createParty}>
-					create your own party
-				</a>
+				{!this.state.isGuest && (
+					<div>
+						or{' '}
+						<a id="create" style={{ cursor: 'pointer' }} onClick={this.createParty}>
+							create your own party
+						</a>
+					</div>
+				)}
 			</div>
 		);
 	}

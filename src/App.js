@@ -8,9 +8,10 @@ import Playback from './components/Playback';
 import GuestPlayback from './components/GuestPlayback';
 import JoinOrCreate from './components/JoinOrCreate';
 import Playlists from './components/Playlists';
+import Login from './components/Login';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import 'react-tabs/style/react-tabs.css';
+import './styles/tabs.css';
 
 class App extends Component {
 	constructor() {
@@ -21,6 +22,7 @@ class App extends Component {
 			songInfo: null,
 			party: null,
 			isHost: false,
+			isGuest: false,
 			memberId: null
 		};
 
@@ -33,6 +35,7 @@ class App extends Component {
 		this.requestSong = this.requestSong.bind(this);
 
 		this.setParty = this.setParty.bind(this);
+		this.guestLogin = this.guestLogin.bind(this);
 	}
 
 	componentDidMount() {
@@ -63,80 +66,78 @@ class App extends Component {
 		this.playbackElement.current.setSong(song);
 	}
 
+	guestLogin() {
+		this.setState({ loggedIn: true, isGuest: true });
+	}
+
 	render() {
 		return (
 			<div className="App">
 				<div className="App-head">crowdpleaser</div>
-				{!this.state.loggedIn &&
-					!this.state.party && (
-						<div>
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<br />
-							<a
-								id="login"
-								href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-									'%20'
-								)}&response_type=token&show_dialog=true`}
-							>
-								Login to Spotify
-						</a>
-						</div>
-					)}
-				{this.state.loggedIn &&
-					!this.state.party && (
-						<div className="App-content">
-							<JoinOrCreate access_token={this.state.token} setParty={this.setParty} />
-						</div>
-					)}
-				{this.state.loggedIn &&
-					this.state.party && (
-						<div className="App-content">
-							party code: <div style={{ fontWeight: 'bold' }}>{this.state.party}</div>
-							<Tabs forceRenderTabPanel={true}>
-								<TabList style={{ color: 'black' }}>
-									<Tab>up next</Tab>
-									<Tab>search</Tab>
-									<Tab>playlists</Tab>
-								</TabList>
+				{/* if not logged in or in a party */}
+				{!this.state.loggedIn && !this.state.party && <Login guestLogin={this.guestLogin} />}
 
-								<TabPanel>
-									<Queue
-										ref={this.queueElement}
-										playSong={this.playSong}
-										party={this.state.party}
-										isHost={this.state.isHost}
-										memberId={this.state.memberId}
-									/>
-								</TabPanel>
-								<TabPanel>
-									<Search access_code={this.state.token} addToQueue={this.addToQueue} />
-								</TabPanel>
-								<TabPanel>
-									<Playlists access_token={this.state.token} addToQueue={this.addToQueue} />
-								</TabPanel>
-							</Tabs>
-							{this.state.isHost && (
-								<Playback
-									ref={this.playbackElement}
-									access_code={this.state.token}
-									requestSong={this.requestSong}
+				{/* if logged in, but not in a party */}
+				{this.state.loggedIn &&
+				!this.state.party && (
+					<div className="App-content">
+						<JoinOrCreate
+							access_token={this.state.token}
+							isGuest={this.state.isGuest}
+							setParty={this.setParty}
+						/>
+					</div>
+				)}
+
+				{/* if logged in and in a party */}
+				{this.state.loggedIn &&
+				this.state.party && (
+					<div className="App-content">
+						party code: <div style={{ fontWeight: 'bold' }}>{this.state.party}</div>
+						<Tabs forceRenderTabPanel={true}>
+							<TabList>
+								<Tab>up next</Tab>
+								<Tab>search</Tab>
+								<Tab>playlists</Tab>
+							</TabList>
+
+							<TabPanel>
+								<Queue
+									ref={this.queueElement}
+									playSong={this.playSong}
 									party={this.state.party}
+									isHost={this.state.isHost}
+									memberId={this.state.memberId}
 								/>
-							)}
-							{!this.state.isHost && (
-								<GuestPlayback
-									ref={this.playbackElement}
-									requestSong={this.requestSong}
-									party={this.state.party}
+							</TabPanel>
+							<TabPanel>
+								<Search access_code={this.state.token} addToQueue={this.addToQueue} />
+							</TabPanel>
+							<TabPanel>
+								<Playlists
+									access_token={this.state.token}
+									isGuest={this.state.isGuest}
+									addToQueue={this.addToQueue}
 								/>
-							)}
-						</div>
-					)}
+							</TabPanel>
+						</Tabs>
+						{this.state.isHost && (
+							<Playback
+								ref={this.playbackElement}
+								access_code={this.state.token}
+								requestSong={this.requestSong}
+								party={this.state.party}
+							/>
+						)}
+						{!this.state.isHost && (
+							<GuestPlayback
+								ref={this.playbackElement}
+								requestSong={this.requestSong}
+								party={this.state.party}
+							/>
+						)}
+					</div>
+				)}
 			</div>
 		);
 	}

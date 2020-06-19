@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './QueueItem.css';
+import '../styles/QueueItem.css';
 
 export default class SearchResult extends Component {
 	constructor(props) {

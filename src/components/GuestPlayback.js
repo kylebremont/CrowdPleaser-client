@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Line } from 'rc-progress';
-import './Playback.css';
+import '../styles/Playback.css';
 import { apiUrl } from './../config';
 
 export default class GuestPlayback extends Component {
@@ -94,31 +94,31 @@ export default class GuestPlayback extends Component {
 
 	render() {
 		return (
-			<div className="playback-footer">
-				{this.state.song.name && (
-					<div>
-						<div className="content-row">
-							<div className="playback-col">
-								<img src={this.state.song.image} alt="album cover" />
-							</div>
-							<div className="playback-col">
-								<div>
-									{this.state.song.name}
-									<br />
-									{this.state.song.artist}
+			<div className="container">
+				<footer className="footer">
+					{this.state.song.name && (
+						<div>
+							<div className="row">
+								<div className="col">
+									<img src={this.state.song.image} id="playback-thumbnail" alt="album cover" />
 								</div>
+								<div className="col">
+									<div>
+										{this.state.song.name}
+										<br />
+										{this.state.song.artist}
+									</div>
+								</div>
+								<div className="col" />
 							</div>
-							<div className="playback-col" />
-						</div>
-						<div className="progress-row">
 							<Line
 								percent={this.state.progress / this.state.song.duration * 100}
 								strokeWidth="0.5"
 								strokeColor="green"
 							/>
 						</div>
-					</div>
-				)}
+					)}
+				</footer>
 			</div>
 		);
 	}
