@@ -89,9 +89,9 @@ export default class JoinOrCreate extends Component {
 					<div id="inputBox">
 						<input onChange={(e) => this.setState({ searchValue: e.target.value })} />
 					</div>
-					<a className="button" style={{ cursor: 'pointer', color: 'black' }} onClick={this.joinParty}>
+					<button className="button" style={{ cursor: 'pointer', color: 'black' }} onClick={this.joinParty}>
 						join party
-					</a>
+					</button>
 					{this.state.errorMessage && <div id="error">invalid party code</div>}
 				</div>
 			</div>
