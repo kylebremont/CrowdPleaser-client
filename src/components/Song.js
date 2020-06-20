@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import '../styles/SearchResult.css';
+import '../styles/Song.css';
 
-export default class SearchResult extends Component {
+export default class Song extends Component {
 	constructor(props) {
 		super(props);
 
@@ -24,14 +24,17 @@ export default class SearchResult extends Component {
 					this.props.getSongUri(this.state);
 				}}
 			>
-				<div id="row">
-					<div id="art-column">
+				<div className="row">
+					<div className="col-4 text-right" id="over">
 						<img src={this.state.image} alt="album cover" className="imgz" />
 					</div>
-					<div id="info-column">
-						<div id="song-title">{this.state.name}</div>
-						<br />
-						<div id="song-artist">{this.state.artist}</div>
+					<div className="col-8">
+						<div className="row">
+							<div className="song-title">{this.state.name}</div>
+						</div>
+						<div className="row">
+							<div className="song-artist">{this.state.artist}</div>
+						</div>
 					</div>
 				</div>
 			</div>

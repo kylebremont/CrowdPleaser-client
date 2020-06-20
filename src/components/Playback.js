@@ -95,15 +95,14 @@ export default class Playback extends Component {
 					this.getNextSong(false);
 				}, this.state.song.duration - this.state.progress);
 				url = `https://api.spotify.com/v1/me/player/play?device_id=${id}`;
-				body = { uris: [ spotify_uri ] };
+				body = { uris: [spotify_uri] };
 				if (this.state.progress > 0) {
 					body['position_ms'] = this.state.progress;
 				}
-				// TELL SELF TO POP QUEUE AFTER PROGRESS >= DURATION
 			} else {
 				this.stopTimer();
 				url = `https://api.spotify.com/v1/me/player/pause?device_id=${id}`;
-				body = { uris: [ spotify_uri ] };
+				body = { uris: [spotify_uri] };
 			}
 
 			getOAuthToken((access_token) => {
@@ -141,7 +140,6 @@ export default class Playback extends Component {
 			.then((response) => {
 				this.setState({ song: response }, () => this.playTrack());
 			});
-		// this.setState({ song }, () => this.playTrack());
 	}
 
 	connectToSpotify() {
@@ -161,20 +159,8 @@ export default class Playback extends Component {
 			player.addListener('ready', ({ device_id }) => {
 				console.log('Ready with Device ID', device_id);
 
-				// TODO: make device id correspond to dictionary of tokens
 				var data = {};
 				data[device_id] = this.state.access_code;
-
-				// fetch(`http://localhost:3500/devices`, {
-				// 	method: 'PUT',
-				// 	body: JSON.stringify(data),
-				// 	headers: {
-				// 		'Content-Type': 'application/json',
-				// 		Authorization: `Bearer ${this.state.access_code}`
-				// 	}
-				// }).catch((error) => {
-				// 	console.error('Error:', error);
-				// });
 
 				this.setState({ player });
 			});
@@ -188,7 +174,7 @@ export default class Playback extends Component {
 	render() {
 		return (
 			<div className="container">
-				<footer className="footer">
+				<div className="footer">
 					{this.connectToSpotify()}
 					{this.state.song.name && (
 						<div>
@@ -216,14 +202,14 @@ export default class Playback extends Component {
 													)}
 											/>
 										) : (
-											<BsFillPlayFill
-												size={60}
-												onClick={() =>
-													this.setState({ isPlaying: !this.state.isPlaying }, () =>
-														this.playTrack()
-													)}
-											/>
-										)}
+												<BsFillPlayFill
+													size={60}
+													onClick={() =>
+														this.setState({ isPlaying: !this.state.isPlaying }, () =>
+															this.playTrack()
+														)}
+												/>
+											)}
 									</IconContext.Provider>
 
 									<IconContext.Provider value={{ color: 'white', className: 'skip-button' }}>
@@ -235,10 +221,11 @@ export default class Playback extends Component {
 								percent={this.state.progress / this.state.song.duration * 100}
 								strokeWidth="0.5"
 								strokeColor="#E397E3"
+								trailColor="gray"
 							/>
 						</div>
 					)}
-				</footer>
+				</div>
 			</div>
 		);
 	}

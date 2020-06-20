@@ -1,6 +1,7 @@
 #login-buttons {
 	/* transform: translateY(40%); */
 	height: 100vh;
+	color: white;
 }
 
 #spotify-button {
@@ -9,8 +10,6 @@
 }
 
 #guest-button {
-	height: 20vh;
-	transform: translateY(100%);
-	color: white;
-	cursor: pointer;
+	height: 50vh;
+	transform: translateY(100%);	
 }

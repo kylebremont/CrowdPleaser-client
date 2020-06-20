@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { apiUrl } from './../config';
 import '../styles/JoinOrCreate.css';
 
-export default class Search extends Component {
+export default class JoinOrCreate extends Component {
 	constructor(props) {
 		super(props);
 
@@ -64,37 +64,36 @@ export default class Search extends Component {
 
 	render() {
 		return (
-			<div className="JoinOrCreate">
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<input onChange={(e) => this.setState({ searchValue: e.target.value })} />
-				<br />
-				<br />
-				<a className="button" style={{ cursor: 'pointer' }} onClick={this.joinParty}>
-					join party
-				</a>
-				<br />
-				<br />
-				{this.state.errorMessage && <div id="error">invalid party code</div>}
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				{!this.state.isGuest && (
-					<div>
-						or{' '}
-						<a id="create" style={{ cursor: 'pointer' }} onClick={this.createParty}>
-							create your own party
-						</a>
+			<div id="JoinOrCreate">
+				<div id="header">
+					welcome to crowdpleaser! <br />
+					if you have a party code enter it below
+					{!this.state.isGuest && (
+						<div id="create">
+							or{' '}
+							<div
+								style={{
+									cursor: 'pointer',
+									fontWeight: 'bold',
+									display: 'inline',
+									textDecoration: 'underline'
+								}}
+								onClick={this.createParty}
+							>
+								click here to create your own party
+							</div>
+						</div>
+					)}
+				</div>
+				<div id="join">
+					<div id="inputBox">
+						<input onChange={(e) => this.setState({ searchValue: e.target.value })} />
 					</div>
-				)}
+					<a className="button" style={{ cursor: 'pointer', color: 'black' }} onClick={this.joinParty}>
+						join party
+					</a>
+					{this.state.errorMessage && <div id="error">invalid party code</div>}
+				</div>
 			</div>
 		);
 	}

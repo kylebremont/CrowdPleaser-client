@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PlaylistItem from './PlaylistItem';
-import SearchResult from './SearchResult';
+import Song from './Song';
 import { IoIosArrowBack } from 'react-icons/io';
 import { IconContext } from 'react-icons';
 import '../styles/Playlists.css';
@@ -114,7 +114,7 @@ export default class Playlists extends Component {
 
 							{this.state.display_tracks === true &&
 								this.state.tracks.map((song, i) => {
-									return <SearchResult key={i} data={song} getSongUri={this.getSongUri} />;
+									return <Song key={i} data={song} getSongUri={this.getSongUri} />;
 								})}
 						</div>
 					</div>
