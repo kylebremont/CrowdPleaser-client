@@ -9,7 +9,6 @@ export default class Search extends Component {
 		super(props);
 
 		this.state = {
-			access_code: props.access_code,
 			player: null,
 			searchValue: '',
 			songs: []

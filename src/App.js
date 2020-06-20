@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import hash from './hash';
+import getHashParams from './hash';
 import Search from './components/Search';
 import Queue from './components/Queue';
 import Playback from './components/Playback';
@@ -38,7 +38,11 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		let _token = hash.access_token;
+		let params = getHashParams();
+		let _token = params.access_token;
+		// console.log(params.access_token);
+		// console.log(params.refresh_token);
+		// console.log(params);
 
 		if (_token) {
 			// Set token
@@ -110,7 +114,7 @@ class App extends Component {
 								/>
 							</TabPanel>
 							<TabPanel>
-								<Search access_code={this.state.token} addToQueue={this.addToQueue} />
+								<Search addToQueue={this.addToQueue} />
 							</TabPanel>
 							<TabPanel>
 								<Playlists
