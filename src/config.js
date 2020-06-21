@@ -1,3 +1,3 @@
 export const apiUrl = 'http://35.224.46.104:3500/';
-export const clientId = '5c24a8e608774631812a8325b2b4057a';
-export const secret = '4837b819f7cd4cae8f4685c3b7906e5e';
+export const clientId = 'f0531284787841d89487e68e97f3c547';
+export const secret = 'c7bb46c0147c447ca857e1eb11460332';
