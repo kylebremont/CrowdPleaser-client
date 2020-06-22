@@ -6,13 +6,7 @@ export default function Login(props) {
 	return (
 		<div id="login-buttons">
 			<div id="spotify-button">
-				<a
-					className="button"
-					// href={`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
-					// 	'%20'
-					// )}&response_type=token&show_dialog=true`}
-					href={`${apiUrl}login`}
-				>
+				<a className="button" href={`${apiUrl}login`}>
 					login to spotify
 				</a>
 			</div>

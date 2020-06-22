@@ -7,6 +7,7 @@ import GuestPlayback from './components/GuestPlayback';
 import JoinOrCreate from './components/JoinOrCreate';
 import Playlists from './components/Playlists';
 import Login from './components/Login';
+import { apiUrl } from './config';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import './App.css';
@@ -22,7 +23,8 @@ class App extends Component {
 			party: null,
 			isHost: false,
 			isGuest: false,
-			memberId: null
+			memberId: null,
+			userInfo: []
 		};
 
 		this.queueElement = React.createRef();
@@ -45,11 +47,20 @@ class App extends Component {
 		// console.log(params);
 
 		if (_token) {
-			// Set token
-			this.setState({
-				token: _token,
-				loggedIn: true
-			});
+			// get user profile info
+			fetch(`https://api.spotify.com/v1/me`, {
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${_token}`
+				}
+			})
+				.catch((error) => {
+					console.error('Error:', error);
+				})
+				.then((response) => response.json())
+				.then((response) => {
+					this.setState({ token: _token, loggedIn: true, userInfo: response });
+				});
 		}
 	}
 
@@ -88,6 +99,7 @@ class App extends Component {
 							access_token={this.state.token}
 							isGuest={this.state.isGuest}
 							setParty={this.setParty}
+							userInfo={this.state.userInfo}
 						/>
 					</div>
 				)}

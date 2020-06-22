@@ -20,6 +20,7 @@ export default class JoinOrCreate extends Component {
 	createParty() {
 		var data = {};
 		data['access_token'] = this.state.access_token;
+		data['host_name'] = this.props.userInfo.display_name;
 
 		var endpoint = 'create_party';
 		fetch(this.state.url + endpoint, {
