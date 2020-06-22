@@ -87,7 +87,7 @@ export default class JoinOrCreate extends Component {
 				</div>
 				<div id="join">
 					<div id="inputBox">
-						<input onChange={(e) => this.setState({ searchValue: e.target.value })} />
+						<input onChange={(e) => this.setState({ searchValue: e.target.value.toLowerCase() })} />
 					</div>
 					<button className="button" style={{ cursor: 'pointer', color: 'black' }} onClick={this.joinParty}>
 						join party
