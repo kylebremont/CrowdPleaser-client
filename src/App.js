@@ -7,7 +7,6 @@ import GuestPlayback from './components/GuestPlayback';
 import JoinOrCreate from './components/JoinOrCreate';
 import Playlists from './components/Playlists';
 import Login from './components/Login';
-import { apiUrl } from './config';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import './App.css';
