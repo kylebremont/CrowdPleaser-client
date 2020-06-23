@@ -9,6 +9,7 @@ export default class Search extends Component {
 		super(props);
 
 		this.state = {
+			memberId: props.memberId,
 			player: null,
 			searchValue: '',
 			songs: []
@@ -80,7 +81,9 @@ export default class Search extends Component {
 				<div className="scrollable">
 					{this.state.songs !== undefined &&
 						this.state.songs.map((song, i) => {
-							return <Song key={i} data={song} getSongUri={this.getSongUri} />;
+							return (
+								<Song key={i} data={song} getSongUri={this.getSongUri} memberId={this.state.memberId} />
+							);
 						})}
 				</div>
 			</div>

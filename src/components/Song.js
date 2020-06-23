@@ -11,8 +11,8 @@ export default class Song extends Component {
 			uri: props.data.uri,
 			image: props.data.image,
 			duration: props.data.duration,
-			votes: 0,
-			voted: []
+			votes: 1,
+			voted: [ props.memberId ]
 		};
 	}
 

@@ -126,7 +126,7 @@ class App extends Component {
 								/>
 							</TabPanel>
 							<TabPanel>
-								<Search addToQueue={this.addToQueue} />
+								<Search addToQueue={this.addToQueue} memberId={this.state.memberId} />
 							</TabPanel>
 							<TabPanel>
 								<Playlists
